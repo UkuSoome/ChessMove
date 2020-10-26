@@ -1,0 +1,31 @@
+{
+  "C_Cpp.clang_format_style": "Visual Studio",
+  "editor.formatOnSave": false,
+  "[cpp]": {
+    "editor.quickSuggestions": true
+  },
+  "[c]": {
+    "editor.quickSuggestions": true
+  },
+  "C_Cpp.intelliSenseEngineFallback": "Enabled",
+  "cmake.configureOnOpen": false,
+  "idf.portWin": "COM20",
+  "files.associations": {
+    "spi_master.h": "c",
+    "spi_common.h": "c",
+    "lldesc.h": "c",
+    "esp_log.h": "c",
+    "freertos.h": "c",
+    "task.h": "c",
+    "stdio.h": "c",
+    "spi_periph.h": "c",
+    "random": "c",
+    "future": "c",
+    "system_error": "c",
+    "xlocale": "c",
+    "type_traits": "c",
+    "*.inc": "c",
+    "*.ipp": "c",
+    "complex": "c"
+  }
+}
