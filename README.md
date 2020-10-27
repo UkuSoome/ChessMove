@@ -7,7 +7,7 @@ On the ChessMove virtual machine this is already done.
 To run on the ChessMove virtual machine:
 
 1) clone the repository to the machine if not already present.
-2) remove/move the spi_master.c file
+2) delete the spi_master.c file
 3) run ". /home/chessmove/esp_idf/export.sh" command in the repository folder.
 4) run "idf.py -p 'port' -b 115200 flash monitor"
   
