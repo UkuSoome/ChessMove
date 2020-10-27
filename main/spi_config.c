@@ -8,7 +8,9 @@
 #include "driver/spi_master.h"
 #include "driver/gpio.h"
 #include "esp_log.h"
-#define PRINT_BOARD_INTERVAL_US 1000000*2
+#include "spi_config.h"
+
+
 #define SPI_MU_CS0_PIN 4
 #define SPI_MU_CS1_PIN 5
 #define SPI_MU_CS2_PIN 15
@@ -41,7 +43,7 @@
 #define QT_11KEY_MODE_COMMAND 0xF2 // Selects 11 key mode
 #define MAX_TRANS_DATA_SIZE 42
 
-#define nCHNG_INT_PIN_SEL  ((1ULL<<SPI_MU_1_2_nCHANGE) | (1ULL<<SPI_MU_3_4_nCHANGE)| (1ULL<<SPI_SU_1_2_nCHANGE)| (1ULL<<SPI_MU_3_4_nCHANGE))
+#define nCHNG_INT_PIN_SEL  ((1ULL<<SPI_MU_1_2_nCHANGE) | (1ULL<<SPI_MU_3_4_nCHANGE)| (1ULL<<SPI_SU_1_2_nCHANGE)| (1ULL<<SPI_SU_3_4_nCHANGE))
 #define ESP_INTR_FLAG_DEFAULT 0
 
 #define REG_DEVICE_ID 0xC9
@@ -62,22 +64,22 @@
 
 esp_err_t ret;
 static const char *SPI_TAG = "SPICONF";
-spi_device_handle_t MB_QT0_SPI;
+/*spi_device_handle_t MB_QT0_SPI;
 spi_device_handle_t MB_QT1_SPI;
 spi_device_handle_t MB_QT2_SPI;
 spi_device_handle_t MB_QT3_SPI;
 spi_device_handle_t SB_QT0_SPI;
 spi_device_handle_t SB_QT1_SPI;
 spi_device_handle_t SB_QT2_SPI;
-spi_device_handle_t SB_QT3_SPI;
+spi_device_handle_t SB_QT3_SPI;*/
 
-typedef struct {
+/*typedef struct {
     const char* name;
     int cs_pin;
     spi_device_handle_t handle;
     uint8_t host;
     int row_index;
-} device;
+} device;*/
 
 const char* QT_handle_to_string(device);
 
@@ -86,11 +88,6 @@ int button_matrix[BUTTON_MATRIX_ROW_SIZE][BUTTON_MATRIX_COL_SIZE] = {};
 uint8_t global_rx_buffer[MAX_TRANS_DATA_SIZE] = {0};
 
 
-bool QT_MU_1_2_INT_FLAG = false;
-bool QT_MU_3_4_INT_FLAG = false;
-bool QT_SU_1_2_INT_FLAG = false;
-bool QT_SU_3_4_INT_FLAG = false;
-bool QT_INT_ERR_FLAG = false;
 
 void QT_spi_pre_transfer_callback(spi_transaction_t *t) {
     //int SPI_CS=(int)t->user;s
@@ -438,7 +435,7 @@ void QT_device_status(device qt_device)
             (global_rx_buffer[1] & 0x01));
     }
 }
-void QT_check_buttons_and_update_board(device qt_device){
+void QT_check_buttons_and_update_board(device qt_device) {
     static const char *SPI_TAG = "QT_BUTTON_CHECK";
     uint8_t button_row_data = 0; 
     QT_report_request(qt_device, REG_ALL_KEYS, 2);
@@ -454,7 +451,7 @@ void QT_check_buttons_and_update_board(device qt_device){
     }
 }
 
-void print_board(){
+void print_board(void) {
     printf("Printing board: \n");
     printf("\t    A B C D E F G H \n");                     // Print column legend
     for (int i = 0; i < BUTTON_MATRIX_ROW_SIZE; ++i)
@@ -473,12 +470,14 @@ void print_board(){
         printf("\n");
     }
 }
-void configure_spi(void) {
+void configure_spi(uint8_t numb_of_devices, device* device_arr) {
     ESP_LOGI(SPI_TAG, "spi conf \n");
-    int64_t prev_time = 0;
-    uint8_t numb_of_devices = 8;
 
-    device device_arr[numb_of_devices];
+    QT_MU_1_2_INT_FLAG = false;
+    QT_MU_3_4_INT_FLAG = false;
+    QT_SU_1_2_INT_FLAG = false;
+    QT_SU_3_4_INT_FLAG = false;
+    QT_INT_ERR_FLAG = false;
     device_arr[0].name = "MB_QT0_SPI";
     device_arr[0].cs_pin = SPI_MU_CS0_PIN;
     device_arr[1].name = "MB_QT1_SPI";
@@ -512,15 +511,6 @@ void configure_spi(void) {
     
     initBothBoardsBus();
 
-    /*spi_bus_add_device(HSPI_HOST, &MB_QT0_devConfigStruct, &MB_QT0_SPI);
-    spi_bus_add_device(HSPI_HOST, &MB_QT1_devConfigStruct, &MB_QT1_SPI);
-    spi_bus_add_device(HSPI_HOST, &MB_QT2_devConfigStruct, &MB_QT2_SPI);
-    spi_bus_add_device(HSPI_HOST, &MB_QT3_devConfigStruct, &MB_QT3_SPI);
-
-    spi_bus_add_device(VSPI_HOST, &SB_QT0_devConfigStruct, &SB_QT0_SPI);
-    spi_bus_add_device(VSPI_HOST, &SB_QT1_devConfigStruct, &SB_QT1_SPI);
-    spi_bus_add_device(VSPI_HOST, &SB_QT2_devConfigStruct, &SB_QT2_SPI);
-    spi_bus_add_device(VSPI_HOST, &SB_QT3_devConfigStruct, &SB_QT3_SPI);*/
     addDeviceToBus(HSPI_HOST, &MB_QT0_devConfigStruct, &MB_QT0_SPI);
     addDeviceToBus(HSPI_HOST, &MB_QT1_devConfigStruct, &MB_QT1_SPI);
     addDeviceToBus(HSPI_HOST, &MB_QT2_devConfigStruct, &MB_QT2_SPI);
@@ -552,7 +542,6 @@ void configure_spi(void) {
 
     vTaskDelay(200/ portTICK_PERIOD_MS);
 
-    
     gpio_config_t interrupt_conf;
     interrupt_conf.pin_bit_mask = nCHNG_INT_PIN_SEL;
     interrupt_conf.mode = GPIO_MODE_INPUT;
@@ -575,45 +564,7 @@ void configure_spi(void) {
         printf("device name: %s\n", device_arr[i].name);
         QT_device_status(device_arr[i]);
     }
-    uint16_t print_counter = 0;
+    
     ESP_LOGI(SPI_TAG, "Chessboard configured; going into while loop! \n");
-    while (1) {
-       if ((QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) == true){
-            if (QT_MU_1_2_INT_FLAG == true){
-                QT_MU_1_2_INT_FLAG = false;
-                printf("siin");
-                QT_check_buttons_and_update_board(device_arr[0]);
-                QT_check_buttons_and_update_board(device_arr[1]);
-            }
-            else if (QT_MU_3_4_INT_FLAG == true){
-                QT_MU_3_4_INT_FLAG = false;
-                printf("siin2");
-                QT_check_buttons_and_update_board(device_arr[2]);
-                QT_check_buttons_and_update_board(device_arr[3]); 
-            }
-            else if (QT_SU_1_2_INT_FLAG == true){
-                QT_SU_1_2_INT_FLAG = false;
-                printf("siin3");
-                QT_check_buttons_and_update_board(device_arr[4]);
-                QT_check_buttons_and_update_board(device_arr[5]);
-            }
-            else if (QT_SU_3_4_INT_FLAG == true){
-                QT_SU_3_4_INT_FLAG = false;
-                printf("siin4");
-                QT_check_buttons_and_update_board(device_arr[6]);
-                QT_check_buttons_and_update_board(device_arr[7]);
-            }
-            else if (QT_INT_ERR_FLAG == true){
-                QT_INT_ERR_FLAG = false; 
-            }
-        }
-        vTaskDelay(100/ portTICK_PERIOD_MS);    // Wait at least 100ms
-        if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US)
-        {
-            prev_time = esp_timer_get_time();
-            printf("Print number: %d\n", print_counter++);
-            print_board();
-        }
-    }
 }
 

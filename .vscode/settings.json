@@ -9,7 +9,7 @@
   },
   "C_Cpp.intelliSenseEngineFallback": "Enabled",
   "cmake.configureOnOpen": false,
-  "idf.portWin": "COM20",
+  "idf.portWin": "COM5",
   "files.associations": {
     "spi_master.h": "c",
     "spi_common.h": "c",
