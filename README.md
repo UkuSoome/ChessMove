@@ -2,9 +2,9 @@
 
 In ESP_IDF_LOCATION/components/driver/spi_master.c file on line 145 "#define NO_DEV 5" should be added and "spi_bus_add_device" function should be replaced with the one in the spi_master.c file on this repository.
 
-On the chessMove virtual machine this is already done.
+On the ChessMove virtual machine this is already done.
 
-To run on the chessMove virtual machine:
+To run on the ChessMove virtual machine:
 
 1) clone the repository to the machine if not already present.
 2) remove/move the spi_master.c file
