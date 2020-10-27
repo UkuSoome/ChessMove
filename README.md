@@ -4,4 +4,4 @@ spi_master.c file should replace the file with same name in ESP_IDF_LOCATION/com
 
 OR
 
-on line 145 of the file, #define NO_DEV 5 can be added and spi_bus_add_device function should be replaced with the one in this file.
+on line 145 of the file, "#define NO_DEV 5" can be added and "spi_bus_add_device" function should be replaced with the one in this file.
