@@ -9,15 +9,21 @@ sudo apt-get install git wget flex bison gperf python3 python3-pip python3-setup
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10 && alias pip=pip3
 
 3) 
-mkdir -p ~/esp 
+mkdir -p ~/esp
+
 cd ~/esp 
+
 git clone –recursive https://github.com/espressif/esp-idf.git 
+
 cd /esp-idf 
+
 ./install.sh 
 
 4)
 mkdir /kaust/ 
+
 cd /kaust/ 
+
 cp -r ~/esp/esp-idf/examples/get-started/hello_world . 
 
 
