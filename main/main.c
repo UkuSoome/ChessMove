@@ -7,6 +7,8 @@
 #include "esp_log.h"
 #include "driver/spi_master.h"
 #include "spi_config.h"
+#include "wifi_config.h"
+
 
 #ifdef CONFIG_IDF_TARGET_ESP32
 #define CHIP_NAME "ESP32"
@@ -16,7 +18,16 @@
 
 void app_main(void)
 {   
-    static const char *SPI_TAG = "MAIN";
+    configure_wifi();
+    char* url = "http://127.0.0.1:24377/api/move/";
+    char* move = "{\"boardId\":\"4\",\"from\":\"a2\",\"to\":\"a4\"}";
+    //curl -X POST localhost:24377/api/start/3
+    sendHttpRequest(url, move);
+    while (1) {
+        printf("tere\n");
+        vTaskDelay(1000/ portTICK_PERIOD_MS);    // Wait at least 100ms
+    }
+    /*static const char *SPI_TAG = "MAIN";
     uint8_t numb_of_devices = 8;
     device device_arr[numb_of_devices];
     configure_spi(numb_of_devices, device_arr);
@@ -54,6 +65,6 @@ void app_main(void)
             printf("Print number: %d\n", print_counter++);
             print_board();
         }
-    }
+    }*/
 }
 

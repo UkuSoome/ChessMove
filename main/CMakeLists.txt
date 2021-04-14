@@ -1,4 +1,4 @@
 idf_component_register(
-    SRCS "spi_config.c" "main.c"
+    SRCS "wifi_config.c" "spi_config.c" "main.c"
     INCLUDE_DIRS ""
 )

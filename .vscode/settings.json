@@ -26,6 +26,11 @@
     "type_traits": "c",
     "*.inc": "c",
     "*.ipp": "c",
-    "complex": "c"
-  }
+    "complex": "c",
+    "wifi.h": "c",
+    "err.h": "c",
+    "string.h": "c"
+  },
+  "idf.espIdfPathWin": "C:\\Users\\Uku\\esp\\esp-idf",
+  "idf.toolsPathWin": "C:\\Users\\Uku\\esp\\esp-idf\\tools"
 }
