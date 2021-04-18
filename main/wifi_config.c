@@ -146,21 +146,17 @@ esp_err_t _http_event_handle(esp_http_client_event_t *evt)
     return ESP_OK;
 }
 
-void sendHttpRequest(char* urlString, char* move) {
-
-
-    printf(urlString);
-    printf("\n");
-    printf(move);
-    printf("\n");
+void sendHttpRequest(char* urlString, char* move, bool begin) {
     esp_http_client_config_t config = {
     .url = urlString,
     .event_handler = _http_event_handle,
     };
     esp_http_client_handle_t client = esp_http_client_init(&config);
     esp_http_client_set_method(client, HTTP_METHOD_POST);
-    esp_http_client_set_header(client, "Content-Type", "application/json");
-    esp_http_client_set_post_field(client, move, strlen(move));
+    if (!begin) {}
+        esp_http_client_set_header(client, "Content-Type", "application/json");
+        esp_http_client_set_post_field(client, move, strlen(move));
+    }
     esp_err_t err = esp_http_client_perform(client);
 
     if (err == ESP_OK) {

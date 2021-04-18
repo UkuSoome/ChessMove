@@ -19,11 +19,12 @@
 void app_main(void)
 {   
     configure_wifi();
-    vTaskDelay(5000/ portTICK_PERIOD_MS);
-    char* url = "http://192.168.1.220:24377/api/move";
-    char* move = "{\"boardId\":\"5\",\"from\":\"a2\",\"to\":\"a4\"}";
-    //curl -X POST localhost:24377/api/start/3
-    sendHttpRequest(url, move);
+    vTaskDelay(1000/ portTICK_PERIOD_MS);
+    char* starturl = "http://192.168.1.220:24377/api/start/7";
+    char* move = "{\"boardId\":\"7\",\"from\":\"a2\",\"to\":\"a4\"}";
+    sendHttpRequest(starturl, move, true);
+    char* moveurl = "http://192.168.1.220:24377/api/move";
+    sendHttpRequest(moveurl, move, false);
     while (1) {
         printf("tere\n");
         vTaskDelay(1000/ portTICK_PERIOD_MS);    // Wait at least 100ms
