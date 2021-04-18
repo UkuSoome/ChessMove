@@ -22,9 +22,11 @@ void app_main(void)
     vTaskDelay(1000/ portTICK_PERIOD_MS);
     char* starturl = "http://192.168.1.220:24377/api/start/7";
     char* move;// = "{\"boardId\":\"7\",\"from\":\"a2\",\"to\":\"a4\"}";
-    char* pos1 = "a2";
-    char* pos2 = "a4";
-    asprintf(&move, "{\"boardId\":\"7\",\"from\":\"%pos1\",\"to\":\"%pos2\"}", pos1, pos2);
+    char pos1 = "a";
+    char pos2 = "a";
+    char pos3 = "2";
+    char pos4 = "4"
+    asprintf(&move, "{\"boardId\":\"7\",\"from\":\"%pos1%pos3\",\"to\":\"%pos2%pos4\"}", pos1, pos2, pos3, pos4);
     printf(move);
     /*sendHttpRequest(starturl, move, true);
     vTaskDelay(1000/ portTICK_PERIOD_MS);
