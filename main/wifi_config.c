@@ -16,7 +16,7 @@
 #define WIFI_FAIL_BIT      BIT1
 
 #define ESP_WIFI_SSID      "Telia-A0C002-24g"
-#define ESP_WIFI_PASS      "CNUW6LG34MVR6"
+#define ESP_WIFI_PASS      "CNUW6LG34MV4R6"
 
 
 static EventGroupHandle_t s_wifi_event_group;

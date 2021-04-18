@@ -20,7 +20,7 @@ void app_main(void)
 {   
     configure_wifi();
     char* url = "http://127.0.0.1:24377/api/move/";
-    char* move = "{\"boardId\":\"4\",\"from\":\"a2\",\"to\":\"a4\"}";
+    char* move = "{\"boardId\":\"3\",\"from\":\"a2\",\"to\":\"a4\"}";
     //curl -X POST localhost:24377/api/start/3
     sendHttpRequest(url, move);
     while (1) {
