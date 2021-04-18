@@ -113,7 +113,6 @@ void configure_wifi(void) {
     }
 }
 
-
 esp_err_t _http_event_handle(esp_http_client_event_t *evt)
 {
     switch(evt->event_id) {
@@ -148,7 +147,7 @@ esp_err_t _http_event_handle(esp_http_client_event_t *evt)
 }
 
 void sendHttpRequest(char* urlString, char* move) {
-    esp_http_client_config_t config = {
+    /*esp_http_client_config_t config = {
         //.url = urlString,
         .host = "localhost",
         .port = 24377,
@@ -173,5 +172,22 @@ void sendHttpRequest(char* urlString, char* move) {
     ESP_LOGI(TAG, "Status = %d, content_length = %d",
             esp_http_client_get_status_code(client),
             esp_http_client_get_content_length(client));
+    esp_http_client_cleanup(client);*/
+    esp_http_client_config_t config = {
+    .url = urlString,
+    .event_handler = _http_event_handle,
+    };
+    esp_http_client_handle_t client = esp_http_client_init(&config);
+    esp_err_t err = esp_http_client_perform(client);
+
+    if (err == ESP_OK) {
+    ESP_LOGI(TAG, "Status = %d, content_length = %d",
+            esp_http_client_get_status_code(client),
+            esp_http_client_get_content_length(client));
+    }
     esp_http_client_cleanup(client);
 }
+
+
+
+
