@@ -155,7 +155,7 @@ void sendHttpRequest(char* urlString, char* move) {
     printf(move);
     printf("\n");
     esp_http_client_config_t config = {
-    .url = urlString,
+    .url = "http://192.168.1.220:24377/api/move/",
     .event_handler = _http_event_handle,
     };
     esp_http_client_handle_t client = esp_http_client_init(&config);
