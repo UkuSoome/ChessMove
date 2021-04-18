@@ -147,32 +147,6 @@ esp_err_t _http_event_handle(esp_http_client_event_t *evt)
 }
 
 void sendHttpRequest(char* urlString, char* move) {
-    /*esp_http_client_config_t config = {
-        //.url = urlString,
-        .host = "localhost",
-        .port = 24377,
-        .path = "/api/move/",
-        .timeout_ms = 5,
-        .event_handler = _http_event_handle,
-        .method = HTTP_METHOD_POST,
-    };
-    esp_http_client_handle_t client = esp_http_client_init(&config);
-    //esp_err_t err = esp_http_client_set_url(client, urlString);
-    esp_err_t err = esp_http_client_set_header(client, "Content-Type", "application/json");
-    err = esp_http_client_set_post_field(client, move, sizeof(move));
-
-    err = esp_http_client_perform(client);
-    
-    if (err == ESP_OK) {
-        printf("yay\n");
-    }
-    else {
-        printf("nay\n");
-    }
-    ESP_LOGI(TAG, "Status = %d, content_length = %d",
-            esp_http_client_get_status_code(client),
-            esp_http_client_get_content_length(client));
-    esp_http_client_cleanup(client);*/
 
     char *move1 = "{\"boardId\":\"3\",\"from\":\"a2\",\"to\":\"a4\"}";
 
@@ -182,6 +156,7 @@ void sendHttpRequest(char* urlString, char* move) {
     printf("\n");
     esp_http_client_config_t config = {
     .url = urlString,
+    .transport_type = HTTP_TRANSPORT_OVER_TCP,
     .event_handler = _http_event_handle,
     };
     esp_http_client_handle_t client = esp_http_client_init(&config);
