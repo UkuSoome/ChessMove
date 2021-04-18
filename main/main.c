@@ -20,8 +20,8 @@ void app_main(void)
 {   
     configure_wifi();
     vTaskDelay(5000/ portTICK_PERIOD_MS);
-    char* url = "http://192.168.1.220:24377/api/start/5";
-    char* move = "{\"boardId\":\"3\",\"from\":\"a2\",\"to\":\"a4\"}";
+    char* url = "http://192.168.1.220:24377/api/move";
+    char* move = "{\"boardId\":\"5\",\"from\":\"a2\",\"to\":\"a4\"}";
     //curl -X POST localhost:24377/api/start/3
     sendHttpRequest(url, move);
     while (1) {

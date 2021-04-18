@@ -148,7 +148,6 @@ esp_err_t _http_event_handle(esp_http_client_event_t *evt)
 
 void sendHttpRequest(char* urlString, char* move) {
 
-    const char *move1 = "{\"boardId\":\"3\",\"from\":\"a2\",\"to\":\"a4\"}";
 
     printf(urlString);
     printf("\n");
@@ -161,7 +160,7 @@ void sendHttpRequest(char* urlString, char* move) {
     esp_http_client_handle_t client = esp_http_client_init(&config);
     esp_http_client_set_method(client, HTTP_METHOD_POST);
     esp_http_client_set_header(client, "Accept", "application/json");
-    esp_http_client_set_post_field(client, move1, strlen(move1));
+    esp_http_client_set_post_field(client, move, strlen(move));
     esp_err_t err = esp_http_client_perform(client);
 
     if (err == ESP_OK) {
