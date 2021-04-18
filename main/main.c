@@ -26,7 +26,7 @@ void app_main(void)
     char pos2 = "a";
     char pos3 = "2";
     char pos4 = "4";
-    asprintf(&move, "{\"boardId\":\"7\",\"from\":\"%pos1%pos3\",\"to\":\"%pos2%pos4\"}", pos1, pos2, pos3, pos4);
+    asprintf(&move, "{\"boardId\":\"7\",\"from\":\"%pos1 %pos3\",\"to\":\"%pos2 %pos4\"}", pos1, pos2, pos3, pos4);
     printf(move);
     /*sendHttpRequest(starturl, move, true);
     vTaskDelay(1000/ portTICK_PERIOD_MS);
