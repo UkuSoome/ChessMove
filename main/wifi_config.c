@@ -153,7 +153,7 @@ void sendHttpRequest(char* urlString, char* move, bool begin) {
     };
     esp_http_client_handle_t client = esp_http_client_init(&config);
     esp_http_client_set_method(client, HTTP_METHOD_POST);
-    if (!begin) {}
+    if (!begin) {
         esp_http_client_set_header(client, "Content-Type", "application/json");
         esp_http_client_set_post_field(client, move, strlen(move));
     }

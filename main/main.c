@@ -23,6 +23,7 @@ void app_main(void)
     char* starturl = "http://192.168.1.220:24377/api/start/7";
     char* move = "{\"boardId\":\"7\",\"from\":\"a2\",\"to\":\"a4\"}";
     sendHttpRequest(starturl, move, true);
+    vTaskDelay(1000/ portTICK_PERIOD_MS);
     char* moveurl = "http://192.168.1.220:24377/api/move";
     sendHttpRequest(moveurl, move, false);
     while (1) {
