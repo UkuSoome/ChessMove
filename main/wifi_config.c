@@ -15,8 +15,8 @@
 #define WIFI_CONNECTED_BIT BIT0
 #define WIFI_FAIL_BIT      BIT1
 
-#define ESP_WIFI_SSID      "spidermanAP"
-#define ESP_WIFI_PASS      "JFTQEJA638F"
+#define ESP_WIFI_SSID      "Telia-A0C002-24g"
+#define ESP_WIFI_PASS      "CNUW6LG34MVR6"
 
 
 static EventGroupHandle_t s_wifi_event_group;
@@ -150,7 +150,7 @@ esp_err_t _http_event_handle(esp_http_client_event_t *evt)
 void sendHttpRequest(char* urlString, char* move) {
     esp_http_client_config_t config = {
         //.url = urlString,
-        .host = "127.0.0.1",
+        .host = "localhost",
         .port = 24377,
         .path = "/api/move/",
         .timeout_ms = 5,
@@ -170,18 +170,8 @@ void sendHttpRequest(char* urlString, char* move) {
     else {
         printf("nay\n");
     }
-    /*err = esp_http_client_connect(client);
-        if (err == ESP_OK) {
-        printf("yay1\n");
-    }
-    else {
-        printf("nay1\n");
-    }*/
-    
-    ///if (err == ESP_OK) {
     ESP_LOGI(TAG, "Status = %d, content_length = %d",
             esp_http_client_get_status_code(client),
             esp_http_client_get_content_length(client));
-    ///}
     esp_http_client_cleanup(client);
 }
