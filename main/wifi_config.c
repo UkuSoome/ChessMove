@@ -156,7 +156,6 @@ void sendHttpRequest(char* urlString, char* move) {
     printf("\n");
     esp_http_client_config_t config = {
     .url = urlString,
-    .transport_type = HTTP_TRANSPORT_OVER_TCP,
     .event_handler = _http_event_handle,
     };
     esp_http_client_handle_t client = esp_http_client_init(&config);
