@@ -20,7 +20,7 @@ void app_main(void)
 {   
     configure_wifi();
     vTaskDelay(5000/ portTICK_PERIOD_MS);
-    char* url = "http://localhost:24377/api/start/3";
+    char* url = "http://192.168.1.220:24377/api/start/3";
     //char* url = "http://example.com";
     char* move = "{\"boardId\":\"3\",\"from\":\"a2\",\"to\":\"a4\"}";
     //curl -X POST localhost:24377/api/start/3
