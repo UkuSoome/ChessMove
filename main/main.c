@@ -23,9 +23,9 @@ void app_main(void)
     char* starturl = "http://192.168.1.220:24377/api/start/7";
     char* move;// = "{\"boardId\":\"7\",\"from\":\"a2\",\"to\":\"a4\"}";
     char pos1 = 'a';
-    char pos2 = 'b';
-    char pos3 = "2";
-    char pos4 = "4";
+    char pos2 = '2';
+    char pos3 = 'a';
+    char pos4 = '4';
     asprintf(&move, "{\"boardId\":\"7\",\"from\":\"%C%C\",\"to\":\"%C%C\"}", pos1, pos2,pos3,pos4);
     printf(move);
     /*sendHttpRequest(starturl, move, true);
