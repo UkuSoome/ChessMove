@@ -148,14 +148,14 @@ esp_err_t _http_event_handle(esp_http_client_event_t *evt)
 
 void sendHttpRequest(char* urlString, char* move) {
 
-    char *move1 = "{\"boardId\":\"3\",\"from\":\"a2\",\"to\":\"a4\"}";
+    char *move1 = "{\"boardId\":\"4\",\"from\":\"a2\",\"to\":\"a4\"}";
 
     printf(urlString);
     printf("\n");
     printf(move);
     printf("\n");
     esp_http_client_config_t config = {
-    .url = "http://192.168.1.220:24377/api/move/",
+    .url = urlString,
     .event_handler = _http_event_handle,
     };
     esp_http_client_handle_t client = esp_http_client_init(&config);
