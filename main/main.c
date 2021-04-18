@@ -26,12 +26,12 @@ void app_main(void)
     char pos2 = '2';
     char pos3 = 'a';
     char pos4 = '4';
-    asprintf(&move, "{\"boardId\":\"7\",\"from\":\"%C%C\",\"to\":\"%C%C\"}", pos1, pos2,pos3,pos4);
+    asprintf(&move, "{\"boardId\":\"7\",\"from\":\"%C%C\",\"to\":\"%C%C\"}", pos1,pos2,pos3,pos4);
     printf(move);
-    /*sendHttpRequest(starturl, move, true);
+    sendHttpRequest(starturl, move, true);
     vTaskDelay(1000/ portTICK_PERIOD_MS);
     char* moveurl = "http://192.168.1.220:24377/api/move";
-    sendHttpRequest(moveurl, move, false);*/
+    sendHttpRequest(moveurl, move, false);
     while (1) {
         printf("tere\n");
         vTaskDelay(1000/ portTICK_PERIOD_MS);    // Wait at least 100ms
