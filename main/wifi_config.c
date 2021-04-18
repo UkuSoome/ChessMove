@@ -173,6 +173,9 @@ void sendHttpRequest(char* urlString, char* move) {
             esp_http_client_get_status_code(client),
             esp_http_client_get_content_length(client));
     esp_http_client_cleanup(client);*/
+
+    char *move1 = "{\"boardId\":\"3\",\"from\":\"a2\",\"to\":\"a4\"}";
+
     printf(urlString);
     printf("\n");
     printf(move);
@@ -184,7 +187,7 @@ void sendHttpRequest(char* urlString, char* move) {
     esp_http_client_handle_t client = esp_http_client_init(&config);
     esp_http_client_set_method(client, HTTP_METHOD_POST);
     esp_http_client_set_header(client, "Content-Type", "application/json");
-    esp_http_client_set_post_field(client, move, sizeof(move));
+    esp_http_client_set_post_field(client, move1, sizeof(move1));
     esp_err_t err = esp_http_client_perform(client);
 
     if (err == ESP_OK) {
