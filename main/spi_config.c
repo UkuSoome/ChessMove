@@ -88,9 +88,6 @@ int button_matrix[BUTTON_MATRIX_ROW_SIZE][BUTTON_MATRIX_COL_SIZE] = {};
 uint8_t global_rx_buffer[MAX_TRANS_DATA_SIZE] = {0};
 
 
-int** getButtonMatrix() {
-    return button_matrix;
-}
 void QT_spi_pre_transfer_callback(spi_transaction_t *t) {
     //int SPI_CS=(int)t->user;s
     //gpio_set_level(SPI_CS, 0);
