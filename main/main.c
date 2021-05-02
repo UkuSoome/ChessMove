@@ -19,6 +19,8 @@
 #define SERVERIP "192.168.1.220"
 #define BOARDID 1
 
+int checkboard[8][8] = {};
+
 
 void startGame() {
     char* starturl;
@@ -37,14 +39,11 @@ void sendMove(char* move) {
 }
 void printboard(void) {
     for (int i = 0; i < 8; ++i) {
-                          // Print row legend
-        for (int j = 0; j < 8; ++j)
-        {   
-            if (button_matrix[i][j])
-            {
+        for (int j = 0; j < 8; ++j) {   
+            if (checkboard[i][j]) {
                printf(" X");
             }
-            else{
+            else {
                 printf(" O");
             }
         }
@@ -53,6 +52,16 @@ void printboard(void) {
 }
 void app_main(void)
 {   
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            if (i==0||i==1||i==6||i==7) {
+                checkboard[i][j] = 1;
+            }
+            else {
+                checkboard[i][j] = 0;
+            }
+        }
+    }
     /*configure_wifi();
     vTaskDelay(1000/ portTICK_PERIOD_MS);
     char pos1 = 'a';
