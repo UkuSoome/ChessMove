@@ -18,8 +18,7 @@
 
 #define SERVERIP "192.168.1.220"
 #define BOARDID 1
-#define ESP_WIFI_SSID      "Telia-A0C002-24g"
-#define ESP_WIFI_PASS      "CNUW6LG34MV4R6"
+
 
 void startGame() {
     char* starturl;

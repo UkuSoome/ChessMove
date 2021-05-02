@@ -15,7 +15,8 @@
 #define WIFI_CONNECTED_BIT BIT0
 #define WIFI_FAIL_BIT      BIT1
 
-
+#define ESP_WIFI_SSID      "Telia-A0C002-24g"
+#define ESP_WIFI_PASS      "CNUW6LG34MV4R6"
 
 
 static EventGroupHandle_t s_wifi_event_group;
@@ -46,7 +47,7 @@ static void event_handler(void* arg, esp_event_base_t event_base,
     }
 }
 
-void configure_wifi(char* ESP_WIFI_SSID, char* ESP_WIFI_PASS) {
+void configure_wifi(void) {
     esp_err_t ret = nvs_flash_init();
      if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
       ESP_ERROR_CHECK(nvs_flash_erase());
