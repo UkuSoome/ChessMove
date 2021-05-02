@@ -37,20 +37,21 @@ void sendMove(char* move) {
 }
 void printboard(int** buttons) {
     for (int i = 0; i < 8; ++i) {
-        printf(buttons[i]);
-        printf("\n");
+
        // printf("\t %2d", i+1);                              // Print row legend
-        /*for (int j = 0; j < 8; ++j)
+        for (int j = 0; j < 8; ++j)
         {   
-            if (buttons[i][j])
+            printf(buttons[i][j]);
+            printf("\n");
+            /*if (buttons[i][j])
             {
                printf(" X");
             }
             else{
                 printf(" O");
-            }
+            }*/
         }
-        printf("\n");*/
+        printf("\n");
     }
 }
 void app_main(void)
