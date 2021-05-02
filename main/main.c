@@ -17,15 +17,17 @@
 #define PRINT_BOARD_INTERVAL_US 1000000*2
 
 #define SERVERIP "192.168.1.220"
+#define BOARDID 1
 
-void startGame(int boardId) {
+
+void startGame() {
     char* starturl;
-    asprintf(&starturl, "http://%s:24377/api/start/%d", SERVERIP, boardId);
+    asprintf(&starturl, "http://%s:24377/api/start/%d", SERVERIP, BOARDID);
     sendHttpRequest(starturl, starturl, true);
 }
-char* buildMove(int boardId, char pos1, char pos2, char pos3, char pos4) {
+char* buildMove(char pos1, char pos2, char pos3, char pos4) {
     char* move;
-    asprintf(&move, "{\"boardId\":\"%d\",\"from\":\"%C%C\",\"to\":\"%C%C\"}", boardId, pos1,pos2,pos3,pos4);
+    asprintf(&move, "{\"boardId\":\"%d\",\"from\":\"%C%C\",\"to\":\"%C%C\"}", BOARDID, pos1,pos2,pos3,pos4);
     return move;
 }
 void sendMove(char* move) {
@@ -45,7 +47,7 @@ void app_main(void)
     char pos4 = '4';
     //asprintf(&move, "{\"boardId\":\"7\",\"from\":\"%C%C\",\"to\":\"%C%C\"}", pos1,pos2,pos3,pos4);
     //sendHttpRequest(starturl, move, true);
-    startGame(1);
+    startGame();
     vTaskDelay(1000/ portTICK_PERIOD_MS);
     char* move = buildMove(pos1, pos2, pos3, pos4);
     sendMove(move);
