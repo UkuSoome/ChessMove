@@ -37,7 +37,7 @@ void sendMove(char* move) {
 }
 void app_main(void)
 {   
-    configure_wifi();
+    /*configure_wifi();
     vTaskDelay(1000/ portTICK_PERIOD_MS);
     char pos1 = 'a';
     char pos2 = '2';
@@ -51,8 +51,8 @@ void app_main(void)
     while (1) {
         printf("tere\n");
         vTaskDelay(1000/ portTICK_PERIOD_MS);    // Wait at least 100ms
-    }
-    /*static const char *SPI_TAG = "MAIN";
+    }*/
+    static const char *SPI_TAG = "MAIN";
     uint8_t numb_of_devices = 8;
     device device_arr[numb_of_devices];
     configure_spi(numb_of_devices, device_arr);
@@ -90,6 +90,6 @@ void app_main(void)
             printf("Print number: %d\n", print_counter++);
             print_board();
         }
-    }*/
+    }
 }
 
