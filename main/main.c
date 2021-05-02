@@ -74,7 +74,7 @@ void app_main(void)
     configure_spi(numb_of_devices, device_arr);
     uint16_t print_counter = 0;
     int64_t prev_time = 0;
-    int buttons[][];
+    int** buttons;
     while (1) {
         if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
             if (QT_MU_1_2_INT_FLAG == true) {
