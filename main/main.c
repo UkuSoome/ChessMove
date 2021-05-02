@@ -20,7 +20,7 @@
 
 void startGame(int boardId) {
     char* starturl;
-    asprintf(&starturl, "http://%s/api/start/%d", SERVERIP, boardId);
+    asprintf(&starturl, "http://%s:24377/api/start/%d", SERVERIP, boardId);
     sendHttpRequest(starturl, starturl, true);
 }
 
