@@ -106,8 +106,8 @@ void app_main(void)
             prev_time = esp_timer_get_time();
             //printf("Print number: %d\n", print_counter++);
             //print_board();
-            buttons = getButtonMatrix();
-            printboard(buttons);
+            //buttons = getButtonMatrix();
+            //printboard(buttons);
         }
     }
 }
