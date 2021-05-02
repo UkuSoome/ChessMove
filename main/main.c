@@ -16,9 +16,11 @@
 
 #define PRINT_BOARD_INTERVAL_US 1000000*2
 
-void startGame(int boardId, char* serverip) {
+#define SERVERIP "192.168.1.220"
+
+void startGame(int boardId) {
     char* starturl;
-    asprintf(&starturl, "http://$s/api/start/$d", serverip, boardId);
+    asprintf(&starturl, "http://$s/api/start/$d", SERVERIP, boardId);
     sendHttpRequest(starturl, starturl, true);
 }
 
@@ -35,7 +37,7 @@ void app_main(void)
     asprintf(&move, "{\"boardId\":\"7\",\"from\":\"%C%C\",\"to\":\"%C%C\"}", pos1,pos2,pos3,pos4);
     printf(move);
     //sendHttpRequest(starturl, move, true);
-    startGame(1, "192.168.1.220");
+    startGame(1);
     vTaskDelay(1000/ portTICK_PERIOD_MS);
     char* moveurl = "http://192.168.1.220:24377/api/move";
     sendHttpRequest(moveurl, move, false);
