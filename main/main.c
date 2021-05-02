@@ -37,7 +37,7 @@ void sendMove(char* move) {
 }
 void app_main(void)
 {   
-    configure_wifi(ESP_WIFI_SSID, ESP_WIFI_PASS);
+    configure_wifi();
     vTaskDelay(1000/ portTICK_PERIOD_MS);
     char pos1 = 'a';
     char pos2 = '2';
