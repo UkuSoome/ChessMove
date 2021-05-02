@@ -88,7 +88,7 @@ int button_matrix[BUTTON_MATRIX_ROW_SIZE][BUTTON_MATRIX_COL_SIZE] = {};
 uint8_t global_rx_buffer[MAX_TRANS_DATA_SIZE] = {0};
 
 
-int[][] getButtonMatrix() {
+int** getButtonMatrix() {
     return button_matrix;
 }
 void QT_spi_pre_transfer_callback(spi_transaction_t *t) {
