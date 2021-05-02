@@ -20,8 +20,7 @@
 
 void startGame(int boardId) {
     char* starturl;
-    asprintf(&starturl, "http://%s/api/start/", SERVERIP);
-    printf(starturl);
+    asprintf(&starturl, "http://%s/api/start/%d", SERVERIP, boardId);
     sendHttpRequest(starturl, starturl, true);
 }
 
@@ -42,7 +41,7 @@ void app_main(void)
     vTaskDelay(1000/ portTICK_PERIOD_MS);
 
     char* moveurl = "http://192.168.1.220:24377/api/move";
-    //sendHttpRequest(moveurl, move, false);
+    sendHttpRequest(moveurl, move, false);
 
     while (1) {
         printf("tere\n");
