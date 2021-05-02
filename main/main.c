@@ -35,6 +35,22 @@ void sendMove(char* move) {
     asprintf(&moveurl, "http://%s:24377/api/move", SERVERIP);
     sendHttpRequest(moveurl, move, false);
 }
+void printboard(int[][] buttons) {
+    for (int i = 0; i < 8; ++i) {
+        printf("\t %2d", i+1);                              // Print row legend
+        for (int j = 0; j < 8; ++j)
+        {   
+            if (buttons[i][j])
+            {
+               printf(" X");
+            }
+            else{
+                printf(" O");
+            }
+        }
+        printf("\n");
+    }
+}
 void app_main(void)
 {   
     /*configure_wifi();
@@ -58,6 +74,7 @@ void app_main(void)
     configure_spi(numb_of_devices, device_arr);
     uint16_t print_counter = 0;
     int64_t prev_time = 0;
+    int[][] buttons;
     while (1) {
         if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
             if (QT_MU_1_2_INT_FLAG == true) {
@@ -87,8 +104,10 @@ void app_main(void)
         vTaskDelay(100/ portTICK_PERIOD_MS);    // Wait at least 100ms
         if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
             prev_time = esp_timer_get_time();
-            printf("Print number: %d\n", print_counter++);
-            print_board();
+            //printf("Print number: %d\n", print_counter++);
+            //print_board();
+            buttons = getButtonMatrix();
+            printboard(buttons);
         }
     }
 }
