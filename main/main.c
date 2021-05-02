@@ -18,7 +18,8 @@
 
 #define SERVERIP "192.168.1.220"
 #define BOARDID 1
-
+#define ESP_WIFI_SSID      "Telia-A0C002-24g"
+#define ESP_WIFI_PASS      "CNUW6LG34MV4R6"
 
 void startGame() {
     char* starturl;
@@ -37,22 +38,16 @@ void sendMove(char* move) {
 }
 void app_main(void)
 {   
-    configure_wifi();
+    configure_wifi(ESP_WIFI_SSID, ESP_WIFI_PASS);
     vTaskDelay(1000/ portTICK_PERIOD_MS);
-    //char* starturl = "http://192.168.1.220:24377/api/start/7";
-   //char* move;// = "{\"boardId\":\"7\",\"from\":\"a2\",\"to\":\"a4\"}";
     char pos1 = 'a';
     char pos2 = '2';
     char pos3 = 'a';
     char pos4 = '4';
-    //asprintf(&move, "{\"boardId\":\"7\",\"from\":\"%C%C\",\"to\":\"%C%C\"}", pos1,pos2,pos3,pos4);
-    //sendHttpRequest(starturl, move, true);
     startGame();
     vTaskDelay(1000/ portTICK_PERIOD_MS);
     char* move = buildMove(pos1, pos2, pos3, pos4);
     sendMove(move);
-    //char* moveurl = "http://192.168.1.220:24377/api/move";
-    //sendHttpRequest(moveurl, move, false);
 
     while (1) {
         printf("tere\n");
