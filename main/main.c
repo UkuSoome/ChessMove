@@ -35,7 +35,7 @@ void sendMove(char* move) {
     asprintf(&moveurl, "http://%s:24377/api/move", SERVERIP);
     sendHttpRequest(moveurl, move, false);
 }
-void printboard(int[][] buttons) {
+void printboard(int** buttons) {
     for (int i = 0; i < 8; ++i) {
         printf("\t %2d", i+1);                              // Print row legend
         for (int j = 0; j < 8; ++j)
