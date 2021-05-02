@@ -35,21 +35,18 @@ void sendMove(char* move) {
     asprintf(&moveurl, "http://%s:24377/api/move", SERVERIP);
     sendHttpRequest(moveurl, move, false);
 }
-void printboard(int** buttons) {
+void printboard(void) {
     for (int i = 0; i < 8; ++i) {
-
-       // printf("\t %2d", i+1);                              // Print row legend
+                          // Print row legend
         for (int j = 0; j < 8; ++j)
         {   
-            printf(buttons[i][j]);
-            printf("\n");
-            /*if (buttons[i][j])
+            if (button_matrix[i][j])
             {
                printf(" X");
             }
             else{
                 printf(" O");
-            }*/
+            }
         }
         printf("\n");
     }
@@ -109,8 +106,8 @@ void app_main(void)
             prev_time = esp_timer_get_time();
             //printf("Print number: %d\n", print_counter++);
             //print_board();
-            buttons = getButtonMatrix();
-            printboard(buttons);
+            //buttons = getButtonMatrix();
+            printboard();
         }
     }
 }

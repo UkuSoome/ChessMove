@@ -19,7 +19,7 @@ bool QT_MU_3_4_INT_FLAG;
 bool QT_SU_1_2_INT_FLAG;
 bool QT_SU_3_4_INT_FLAG;
 bool QT_INT_ERR_FLAG;
-
+int button_matrix[][];
 
 void configure_spi(uint8_t, device*);
 const char* QT_handle_to_string(device);
