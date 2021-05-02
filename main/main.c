@@ -23,7 +23,16 @@ void startGame(int boardId) {
     asprintf(&starturl, "http://%s:24377/api/start/%d", SERVERIP, boardId);
     sendHttpRequest(starturl, starturl, true);
 }
-
+char* buildMove(int boardId, char pos1, char pos2, char pos3, char pos4) {
+    char* move;
+    asprintf(&move, "{\"boardId\":\"%d\",\"from\":\"%C%C\",\"to\":\"%C%C\"}", boardId, pos1,pos2,pos3,pos4);
+    return move;
+}
+void sendMove(char* move) {
+    char* moveurl;
+    asprintf(&moveurl, "http://%s:24377/api/move", SERVERIP);
+    sendHttpRequest(moveurl, move, false);
+}
 void app_main(void)
 {   
     configure_wifi();
@@ -34,14 +43,14 @@ void app_main(void)
     char pos2 = '2';
     char pos3 = 'a';
     char pos4 = '4';
-    asprintf(&move, "{\"boardId\":\"7\",\"from\":\"%C%C\",\"to\":\"%C%C\"}", pos1,pos2,pos3,pos4);
-    printf(move);
+    //asprintf(&move, "{\"boardId\":\"7\",\"from\":\"%C%C\",\"to\":\"%C%C\"}", pos1,pos2,pos3,pos4);
     //sendHttpRequest(starturl, move, true);
     startGame(1);
     vTaskDelay(1000/ portTICK_PERIOD_MS);
-
-    char* moveurl = "http://192.168.1.220:24377/api/move";
-    sendHttpRequest(moveurl, move, false);
+    char* move = buildMove(pos1, pos2, pos3, pos4);
+    sendMove(move));
+    //char* moveurl = "http://192.168.1.220:24377/api/move";
+    //sendHttpRequest(moveurl, move, false);
 
     while (1) {
         printf("tere\n");
