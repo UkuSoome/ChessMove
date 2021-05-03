@@ -80,6 +80,7 @@ char letterFromRow(int row) {
     if (row==6) return 'f';
     if (row==7) return 'g';
     if (row==8) return 'h';
+    return 'a';
 }
 void app_main(void)
 {   
