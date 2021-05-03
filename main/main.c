@@ -59,14 +59,14 @@ void compareBoards(void) {
         for (int j = 0; j < 8; ++j) {   
             if (checkboard[i][j] == 1 && button_matrix[i][j] == 0) {
                 checkboard[i][j] = 0;
-                fromnumb = j+1;
-                fromlet = i+1;
+                fromnumb = i+1;
+                fromlet = j+1;
                 movedone = true;
             }
             else if(checkboard[i][j] == 0 && button_matrix[i][j] == 1) {
                 checkboard[i][j] = 1;
-                tonumb = j+1;
-                tolet = i+1;
+                tonumb = i+1;
+                tolet = j+1;
                 movedone = true;
             }
         }
@@ -115,8 +115,6 @@ void app_main(void)
     int64_t prev_time = 0;
     char pos1;
     char pos2;
-    char pos3;
-    char pos4;
     while (1) {
         if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
             if (QT_MU_1_2_INT_FLAG == true) {
