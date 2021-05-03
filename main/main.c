@@ -58,11 +58,13 @@ void compareBoards(void) {
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {   
             if (checkboard[i][j] == 1 && button_matrix[i][j] == 0) {
+                checkboard[i][j] = 0;
                 fromnumb = j+1;
                 fromlet = i+1;
                 movedone = true;
             }
             else if(checkboard[i][j] == 0 && button_matrix[i][j] == 1) {
+                checkboard[i][j] == 1;
                 tonumb = j+1;
                 tolet = i+1;
                 movedone = true;
@@ -148,7 +150,6 @@ void app_main(void)
             printf(move);
             printf("\n");
             sendMove(move);
-            checkboard = button_matrix;
             movedone = false;
         }
         /*if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
