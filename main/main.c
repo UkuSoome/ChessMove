@@ -145,7 +145,10 @@ void app_main(void)
             pos1 = letterFromRow(fromlet);
             pos2 = letterFromRow(tolet);
             move = buildMove(pos1, fromnumb, pos2, tonumb);
+            printf(move);
+            printf("\n");
             sendMove(move);
+            checkboard = button_matrix;
             movedone = false;
         }
         /*if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
