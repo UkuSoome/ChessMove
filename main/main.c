@@ -64,7 +64,7 @@ void compareBoards(void) {
                 movedone = true;
             }
             else if(checkboard[i][j] == 0 && button_matrix[i][j] == 1) {
-                checkboard[i][j] == 1;
+                checkboard[i][j] = 1;
                 tonumb = j+1;
                 tolet = i+1;
                 movedone = true;
