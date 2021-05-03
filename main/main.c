@@ -31,9 +31,9 @@ void startGame() {
     asprintf(&starturl, "http://%s:24377/api/start/%d", SERVERIP, BOARDID);
     sendHttpRequest(starturl, starturl, true);
 }
-char* buildMove(char pos1, char pos2, char pos3, char pos4) {
+char* buildMove(char pos1, int pos2, char pos3, int pos4) {
     char* move;
-    asprintf(&move, "{\"boardId\":\"%d\",\"from\":\"%C%C\",\"to\":\"%C%C\"}", BOARDID, pos1,pos2,pos3,pos4);
+    asprintf(&move, "{\"boardId\":\"%d\",\"from\":\"%C%d\",\"to\":\"%C%d\"}", BOARDID, pos1,pos2,pos3,pos4);
     return move;
 }
 void sendMove(char* move) {
@@ -83,17 +83,6 @@ char letterFromRow(int row) {
     if (row==7) return 'g';
     if (row==8) return 'h';
     return 'a';
-}
-char nrFromRow(int row) {
-    if (row==1) return '1';
-    if (row==2) return '2';
-    if (row==3) return '3';
-    if (row==4) return '4';
-    if (row==5) return '5';
-    if (row==6) return '6';
-    if (row==7) return '7';
-    if (row==8) return '8';
-    return '1';
 }
 void app_main(void)
 {   
@@ -159,9 +148,7 @@ void app_main(void)
         if (movedone) {
             pos1 = letterFromRow(fromlet);
             pos2 = letterFromRow(tolet);
-            pos3 = nrFromRow(fromnumb);
-            pos4 = nrFromRow(tonumb);
-            move = buildMove(pos1, pos3, pos2, pos4);
+            move = buildMove(pos1, fromnumb, pos2, tonumb);
             printf(move);
             printf("\n");
             sendMove(move);

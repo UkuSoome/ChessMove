@@ -565,7 +565,16 @@ void configure_spi(uint8_t numb_of_devices, device* device_arr) {
         printf("device name: %s\n", device_arr[i].name);
         QT_device_status(device_arr[i]);
     }
-    
-    ESP_LOGI(SPI_TAG, "Chessboard configured; going into while loop! \n");
+
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            if (i==0||i==1||i==6||i==7) {
+                button_matrix[i][j] = 1;
+            }
+            else {
+                button_matrix[i][j] = 0;
+            }
+        }
+    }
 }
 
