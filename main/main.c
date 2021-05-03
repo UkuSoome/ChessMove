@@ -84,6 +84,17 @@ char letterFromRow(int row) {
     if (row==8) return 'h';
     return 'a';
 }
+char nrFromRow(int row) {
+    if (row==1) return '1';
+    if (row==2) return '2';
+    if (row==3) return '3';
+    if (row==4) return '4';
+    if (row==5) return '5';
+    if (row==6) return '6';
+    if (row==7) return '7';
+    if (row==8) return '8';
+    return '1';
+}
 void app_main(void)
 {   
     for (int i = 0; i < 8; ++i) {
@@ -115,6 +126,8 @@ void app_main(void)
     int64_t prev_time = 0;
     char pos1;
     char pos2;
+    char pos3;
+    char pos4;
     while (1) {
         if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
             if (QT_MU_1_2_INT_FLAG == true) {
@@ -146,7 +159,9 @@ void app_main(void)
         if (movedone) {
             pos1 = letterFromRow(fromlet);
             pos2 = letterFromRow(tolet);
-            move = buildMove(pos1, fromnumb, pos2, tonumb);
+            pos3 = nrFromRow(fromnumb);
+            pos4 = nrFromRow(tonumb);
+            move = buildMove(pos1, pos3, pos2, pos4);
             printf(move);
             printf("\n");
             sendMove(move);
