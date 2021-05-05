@@ -348,7 +348,7 @@ void QT_setup(device qt_device){
     QT_setup_register(qt_device, REG_KEY8_NTHR, CMD_DISABLE_KEY);
     QT_setup_register(qt_device, REG_KEY9_NTHR, CMD_DISABLE_KEY);
     QT_setup_register(qt_device, REG_KEY10_NTHR, CMD_DISABLE_KEY);
-    QT_control_command(qt_device, 0x03);
+    //QT_control_command(qt_device, 0x03);
     QT_setup_register(qt_device, 0x92, 0xff);
     QT_control_command(qt_device, 0x0A);
 }
