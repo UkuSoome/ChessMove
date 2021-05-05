@@ -54,7 +54,7 @@ void printboard(void) {
         printf("\n");
     }
 }
-void compareBoards(void) {
+/*void compareBoards(void) {
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {   
             if (checkboard[i][j] == 1 && button_matrix[i][j] == 0) {
@@ -71,7 +71,7 @@ void compareBoards(void) {
             }
         }
     }
-}
+}*/
 
 
 void app_main(void)
