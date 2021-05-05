@@ -89,8 +89,6 @@ void app_main(void)
     configure_wifi();
     vTaskDelay(1000/ portTICK_PERIOD_MS);
 
-    startGame();
-    vTaskDelay(1000/ portTICK_PERIOD_MS);
     char* move;
 
     static const char *SPI_TAG = "MAIN";
@@ -104,6 +102,8 @@ void app_main(void)
     //vTaskDelay(40000/ portTICK_PERIOD_MS);
     printf("START");
     printf("\n");
+    startGame();
+    vTaskDelay(1000/ portTICK_PERIOD_MS);
     while (1) {
         if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
             /*if (QT_MU_1_2_INT_FLAG == true) {
