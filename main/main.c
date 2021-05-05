@@ -129,6 +129,9 @@ void app_main(void)
             }
             move = buildMove(fromLet, fromNumb, toLet, toNumb);
             sendMove(move);
+            printf("\n");
+            printf("\n");
+            printf("\n");
             /*for (int i = 0; i < 8; ++i) {
                  QT_check_buttons_and_update_board(device_arr[i]);
             }
