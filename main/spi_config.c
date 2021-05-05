@@ -109,8 +109,6 @@ static void IRAM_ATTR MU_1_2_isr_handler(void* arg)
     // QT MU 1 and 2 interrupt service routine
     // Double check if IO matches and raise flags
     uint32_t gpio_num = (uint32_t) arg;
-    printf("siin");
-    printf("\n");
     if (gpio_num == SPI_MU_1_2_nCHANGE)
         QT_MU_1_2_INT_FLAG = true;
     else
@@ -122,8 +120,6 @@ static void IRAM_ATTR MU_3_4_isr_handler(void* arg)
     // QT MU 3 and 4 interrupt service routine
     // Double check if IO matches and raise flags
     uint32_t gpio_num = (uint32_t) arg;
-    printf("siin2");
-    printf("\n");
     if (gpio_num == SPI_MU_3_4_nCHANGE)
         QT_MU_3_4_INT_FLAG = true;
     else
@@ -135,8 +131,6 @@ static void IRAM_ATTR SU_1_2_isr_handler(void* arg)
     // QT SU 1 and 2 interrupt service routine
     // Double check if IO matches and raise flags
     uint32_t gpio_num = (uint32_t) arg;
-    printf("siin3");
-    printf("\n");
     if (gpio_num == SPI_SU_1_2_nCHANGE)
         QT_SU_1_2_INT_FLAG = true;
     else
@@ -147,8 +141,6 @@ static void IRAM_ATTR SU_3_4_isr_handler(void* arg)
     // QT SU 3 and 4 interrupt service routine
     // Double check if IO matches and raise flags
     uint32_t gpio_num = (uint32_t) arg;
-    printf("siin4");
-    printf("\n");
     if (gpio_num == SPI_SU_3_4_nCHANGE)
         QT_SU_3_4_INT_FLAG = true;
     else
@@ -519,6 +511,11 @@ void print_board(void) {
 }
 
 void check_buttons(device* device_arr) {
+    static const char *SPI_TAG = "DEBUG";
+    ESP_LOGI(SPI_TAG, "pin1 : %x", SPI_MU_1_2_nCHANGE);
+    ESP_LOGI(SPI_TAG, "pin2 : %x", SPI_MU_3_4_nCHANGE);
+    ESP_LOGI(SPI_TAG, "pin3 : %x", SPI_SU_1_2_nCHANGE);
+    ESP_LOGI(SPI_TAG, "pin4 : %x", SPI_SU_3_4_nCHANGE);
     if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
         if (QT_MU_1_2_INT_FLAG == true) {
             QT_MU_1_2_INT_FLAG = false;
