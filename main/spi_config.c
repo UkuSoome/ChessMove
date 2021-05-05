@@ -350,6 +350,7 @@ void QT_setup(device qt_device){
     QT_setup_register(qt_device, REG_KEY8_NTHR, CMD_DISABLE_KEY);
     QT_setup_register(qt_device, REG_KEY9_NTHR, CMD_DISABLE_KEY);
     QT_setup_register(qt_device, REG_KEY10_NTHR, CMD_DISABLE_KEY);
+    QT_setup_register(qt_device, 0x92, 0xf8);
 }
 void QT_report_request(device qt_device, uint8_t command, uint8_t rec_length)
 {
@@ -558,7 +559,7 @@ void configure_spi(uint8_t numb_of_devices, device* device_arr) {
         QT_setup(device_arr[i]);
     }
 
-    printf("devices setup done\n");
+    printf("devices setup done\n"); 
 
     vTaskDelay(200/ portTICK_PERIOD_MS);
     for (int i = 0; i < numb_of_devices; i++) {
