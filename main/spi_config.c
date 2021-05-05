@@ -375,7 +375,7 @@ void QT_report_request(device qt_device, uint8_t command, uint8_t rec_length)
     trans.length=8;                         // Command is 8 bits  
     ret=spi_device_polling_transmit(qt_device.handle, &trans);  //Transmit!
     assert(ret==ESP_OK);            //Should have had no issues.
-    vTaskDelay(150/ portTICK_PERIOD_MS);
+    vTaskDelay(10/ portTICK_PERIOD_MS);
     if(trans.rx_data[0] != CONST_QT_ANS){
         ESP_LOGE(SPI_TAG,"Oops! Something went wrong - command response: 0x%x, device: %s", trans.rx_data[0], qt_device.name);
     }
@@ -389,7 +389,7 @@ void QT_report_request(device qt_device, uint8_t command, uint8_t rec_length)
         global_rx_buffer[i]=trans.rx_data[0];
         ESP_LOGI(SPI_TAG, "data recieved: %x with command %x", trans.rx_data[0], command);
        // ESP_LOGI(SPI_TAG, "Data packet #%i: %x ", i+1,trans.rx_data[0]);
-        vTaskDelay(150/ portTICK_PERIOD_MS);
+        vTaskDelay(10/ portTICK_PERIOD_MS);
     }
 }
 void QT_device_status(device qt_device)
