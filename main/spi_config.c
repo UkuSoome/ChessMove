@@ -109,6 +109,7 @@ static void IRAM_ATTR MU_1_2_isr_handler(void* arg)
     // QT MU 1 and 2 interrupt service routine
     // Double check if IO matches and raise flags
     uint32_t gpio_num = (uint32_t) arg;
+    ESP_LOGI(SPI_TAG, "MA OLEN SIIN TERE");
     if (gpio_num == SPI_MU_1_2_nCHANGE)
         QT_MU_1_2_INT_FLAG = true;
     else
