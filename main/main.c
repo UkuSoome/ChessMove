@@ -98,14 +98,10 @@ void app_main(void)
     }
     configure_wifi();
     vTaskDelay(1000/ portTICK_PERIOD_MS);
-    //char pos1 = 'a';
-    //char pos2 = '2';
-    //char pos3 = 'a';
-    //char pos4 = '4';
+
     startGame();
     vTaskDelay(1000/ portTICK_PERIOD_MS);
-    char* move;// = buildMove(pos1, pos2, pos3, pos4);
-    //sendMove(move);
+    char* move;
 
     static const char *SPI_TAG = "MAIN";
     uint8_t numb_of_devices = 8;
@@ -115,6 +111,7 @@ void app_main(void)
     int64_t prev_time = 0;
     char pos1;
     char pos2;
+    vTaskDelay(30000/ portTICK_PERIOD_MS);
     while (1) {
         if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
             if (QT_MU_1_2_INT_FLAG == true) {
