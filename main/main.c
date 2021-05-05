@@ -152,8 +152,11 @@ void app_main(void)
             else if (QT_INT_ERR_FLAG == true) {
                 QT_INT_ERR_FLAG = false; 
             }
-            move = buildMove(fromLet, fromNumb, toLet, toNumb);
-            sendMove(move);
+            if (checkNumber == 2) {
+                move = buildMove(fromLet, fromNumb, toLet, toNumb);
+                sendMove(move);
+                checkNumber = 0;
+            }
         }
         
             /*for (int i = 0; i < 8; ++i) {
