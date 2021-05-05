@@ -353,9 +353,9 @@ void QT_setup(device qt_device){
     ESP_LOGI(SPI_TAG, "Setup of %s", qt_device.name);
     QT_control_command(qt_device, 0x03);
     QT_setup_register(qt_device, REG_DEVICE_MODE, QT_11KEY_MODE_COMMAND);
-    QT_setup_register(qt_device, REG_KEY8_NTHR, CMD_DISABLE_KEY);
-    QT_setup_register(qt_device, REG_KEY9_NTHR, CMD_DISABLE_KEY);
-    QT_setup_register(qt_device, REG_KEY10_NTHR, CMD_DISABLE_KEY);
+    //QT_setup_register(qt_device, REG_KEY8_NTHR, CMD_DISABLE_KEY);
+    //QT_setup_register(qt_device, REG_KEY9_NTHR, CMD_DISABLE_KEY);
+    //QT_setup_register(qt_device, REG_KEY10_NTHR, CMD_DISABLE_KEY);
     QT_setup_register(qt_device, 0x96, 0x32);
     //QT_control_command(qt_device, 0x0A);
 }
