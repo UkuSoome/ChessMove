@@ -387,7 +387,7 @@ void QT_report_request(device qt_device, uint8_t command, uint8_t rec_length)
         ret=spi_device_polling_transmit(qt_device.handle, &trans);  //Transmit!
         assert(ret==ESP_OK);            //Should have had no issues.
         global_rx_buffer[i]=trans.rx_data[0];
-        //ESP_LOGI(SPI_TAG, "data recieved: %x with command %x", trans.rx_data[0], command);
+        ESP_LOGI(SPI_TAG, "data recieved: %x with command %x", trans.rx_data[0], command);
        // ESP_LOGI(SPI_TAG, "Data packet #%i: %x ", i+1,trans.rx_data[0]);
         vTaskDelay(2/ portTICK_PERIOD_MS);
     }
