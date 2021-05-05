@@ -510,7 +510,7 @@ void print_board(void) {
     }
 }
 
-void check_buttons(void) {
+void check_buttons(device* device_arr) {
     if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
         if (QT_MU_1_2_INT_FLAG == true) {
             QT_MU_1_2_INT_FLAG = false;

@@ -128,7 +128,7 @@ void app_main(void)
     startGame();
     vTaskDelay(1000/ portTICK_PERIOD_MS);
     while (1) {
-        check_buttons();
+        check_buttons(device_arr);
 
             /*for (int i = 0; i < 8; ++i) {
                  QT_check_buttons_and_update_board(device_arr[i]);
