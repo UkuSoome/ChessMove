@@ -457,7 +457,7 @@ void QT_check_buttons_and_update_board(device qt_device) {
     QT_report_request(qt_device, 0x82, 1);
     a = global_rx_buffer[1] & (1 << 7);
     ESP_LOGI(SPI_TAG, "esimene bit on : %d", a);
-    QT_report_request(qt_device, 0x83, 1);
+    QT_report_request(qt_device, 0x84, 1);
     a = global_rx_buffer[1] & (1 << 7);
     ESP_LOGI(SPI_TAG, "esimene bit on : %d", a);
    /* QT_report_request(qt_device, REG_ALL_KEYS, 2);
