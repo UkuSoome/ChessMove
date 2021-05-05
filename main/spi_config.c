@@ -459,7 +459,7 @@ void QT_check_buttons_and_update_board(device qt_device) {
                 ESP_LOGI(SPI_TAG, "SIIA TEHTI KÄIK: %C%X", toLet,toNumb);
             }
             button_matrix[qt_device.row_index][i] = 1;
-            ESP_LOGI(SPI_TAG, "siin real %x on nupp %x staatuses UKS", qt_device.row_index+1, i+1);
+            //ESP_LOGI(SPI_TAG, "siin real %x on nupp %x staatuses UKS", qt_device.row_index+1, i+1);
         }
         else {
             if (button_matrix[qt_device.row_index][i] == 1) {
@@ -468,7 +468,7 @@ void QT_check_buttons_and_update_board(device qt_device) {
                 ESP_LOGI(SPI_TAG, "SIIT TEHTI KÄIK: %C%X", fromLet,fromNumb);
             }
             button_matrix[qt_device.row_index][i] = 0;
-            ESP_LOGI(SPI_TAG,"siin real %x on nupp %x staatuses NULL", qt_device.row_index+1, i+1);
+            //ESP_LOGI(SPI_TAG,"siin real %x on nupp %x staatuses NULL", qt_device.row_index+1, i+1);
         }    
     }
 }
