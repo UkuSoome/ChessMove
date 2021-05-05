@@ -183,7 +183,7 @@ void app_main(void)
             //printf("Print number: %d\n", print_counter++);
             //print_board();
             //buttons = getButtonMatrix();
-            printboard();
+            print_board();
         }
     }
 }
