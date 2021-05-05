@@ -40,7 +40,7 @@
 #define CMD_QT_RESET 0x04
 #define CMD_DISABLE_KEY 0x00
 #define CONST_QT_ANS 0x55
-#define QT_11KEY_MODE_COMMAND 0xD2 // Selects 11 key mode
+#define QT_11KEY_MODE_COMMAND 0xF2 // Selects 11 key mode
 #define MAX_TRANS_DATA_SIZE 42
 
 #define nCHNG_INT_PIN_SEL  ((1ULL<<SPI_MU_1_2_nCHANGE) | (1ULL<<SPI_MU_3_4_nCHANGE)| (1ULL<<SPI_SU_1_2_nCHANGE)| (1ULL<<SPI_SU_3_4_nCHANGE))
@@ -503,13 +503,6 @@ void print_board(void) {
 
 void check_buttons(device* device_arr) {
     static const char *SPI_TAG = "DEBUG";
-    //ESP_LOGI(SPI_TAG, "pin1 : %x", gpio_get_level(SPI_MU_1_2_nCHANGE));
-    //ESP_LOGI(SPI_TAG, "pin2 : %x", gpio_get_level(SPI_MU_3_4_nCHANGE));
-    //ESP_LOGI(SPI_TAG, "pin3 : %x", gpio_get_level(SPI_SU_1_2_nCHANGE));
-    //ESP_LOGI(SPI_TAG, "pin4 : %x", gpio_get_level(SPI_SU_3_4_nCHANGE));
-    if (!gpio_get_level(SPI_SU_3_4_nCHANGE)) {
-        ESP_LOGI(SPI_TAG, "siin olen");
-    }
     if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
         if (QT_MU_1_2_INT_FLAG == true) {
             QT_MU_1_2_INT_FLAG = false;
