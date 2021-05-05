@@ -101,7 +101,7 @@ void app_main(void)
     int64_t prev_time = 0;
     char pos1;
     char pos2;
-    vTaskDelay(40000/ portTICK_PERIOD_MS);
+    //vTaskDelay(40000/ portTICK_PERIOD_MS);
     printf("START");
     printf("\n");
     while (1) {

@@ -586,15 +586,23 @@ void configure_spi(uint8_t numb_of_devices, device* device_arr) {
         printf("device name: %s\n", device_arr[i].name);
         QT_device_status(device_arr[i]);
     }
-
-    for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {
-            if (i==0||i==1||i==6||i==7) {
-                button_matrix[i][j] = 1;
+    int nupud_korras = 0;
+    int count_nupud = 0;
+    while (nupud_korras != 16) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (button_matrix[i][j] == 1) {
+                    count_nupud++;
+                }
             }
-            else {
-                button_matrix[i][j] = 0;
-            }
+        }
+        nupud_korras = count_nupud;
+        count_nupud = 0;
+        printf("Nuppe loetud: ");
+        printf(nupud_korras);
+        printf("\n");
+        for (int i = 0; i < numb_of_devices; i++) {
+            QT_check_buttons_and_update_board(device_arr[i]);
         }
     }
     print_board();
