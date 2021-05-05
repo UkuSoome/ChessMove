@@ -102,7 +102,7 @@ void app_main(void)
     //vTaskDelay(40000/ portTICK_PERIOD_MS);
     int nupud_korras = 0;
     int count_nupud = 0;
-    while (nupud_korras != 16) {
+    while (nupud_korras != 32) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (button_matrix[i][j] == 1) {
@@ -113,6 +113,7 @@ void app_main(void)
         ESP_LOGI(SPI_TAG, "NUPPE LOETUD - %x", count_nupud);
         nupud_korras = count_nupud;
         ESP_LOGI(SPI_TAG, "NUPPE KORRAS - %x", nupud_korras);
+        print_board();
         printf("\n");
         printf("\n");
         for (int i = 0; i < numb_of_devices; i++) {
