@@ -346,7 +346,7 @@ void QT_setup_register(device qt_device, uint8_t QT_register, uint8_t command)
     if(trans.rx_data[0] != QT_register){
         ESP_LOGE(SPI_TAG,"Oops! 2 Something went wrong - command response: 0x%x - register %x \n", trans.rx_data[0], QT_register);
     }
-    vTaskDelay(200/ portTICK_PERIOD_MS);
+    vTaskDelay(2/ portTICK_PERIOD_MS);
 }
 void QT_setup(device qt_device){
     static const char *SPI_TAG = "QT_SETUP";
