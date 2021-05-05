@@ -109,7 +109,8 @@ static void IRAM_ATTR MU_1_2_isr_handler(void* arg)
     // QT MU 1 and 2 interrupt service routine
     // Double check if IO matches and raise flags
     uint32_t gpio_num = (uint32_t) arg;
-    ESP_LOGI(SPI_TAG, "MA OLEN SIIN TERE");
+    printf("siin");
+    printf("\n");
     if (gpio_num == SPI_MU_1_2_nCHANGE)
         QT_MU_1_2_INT_FLAG = true;
     else
@@ -121,6 +122,8 @@ static void IRAM_ATTR MU_3_4_isr_handler(void* arg)
     // QT MU 3 and 4 interrupt service routine
     // Double check if IO matches and raise flags
     uint32_t gpio_num = (uint32_t) arg;
+    printf("siin2");
+    printf("\n");
     if (gpio_num == SPI_MU_3_4_nCHANGE)
         QT_MU_3_4_INT_FLAG = true;
     else
@@ -132,6 +135,8 @@ static void IRAM_ATTR SU_1_2_isr_handler(void* arg)
     // QT SU 1 and 2 interrupt service routine
     // Double check if IO matches and raise flags
     uint32_t gpio_num = (uint32_t) arg;
+    printf("siin3");
+    printf("\n");
     if (gpio_num == SPI_SU_1_2_nCHANGE)
         QT_SU_1_2_INT_FLAG = true;
     else
@@ -142,6 +147,8 @@ static void IRAM_ATTR SU_3_4_isr_handler(void* arg)
     // QT SU 3 and 4 interrupt service routine
     // Double check if IO matches and raise flags
     uint32_t gpio_num = (uint32_t) arg;
+    printf("siin4");
+    printf("\n");
     if (gpio_num == SPI_SU_3_4_nCHANGE)
         QT_SU_3_4_INT_FLAG = true;
     else
