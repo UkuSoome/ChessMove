@@ -596,8 +596,9 @@ void configure_spi(uint8_t numb_of_devices, device* device_arr) {
                 }
             }
         }
+        ESP_LOGI(SPI_TAG, "NUPPE LOETUD - %x", count_nupud);
         nupud_korras = count_nupud;
-        ESP_LOGI(SPI_TAG, "NUPPE LOETUD - %x", nupud_korras);
+        ESP_LOGI(SPI_TAG, "NUPPE KORRAS - %x", nupud_korras);
         printf("\n");
         printf("\n");
         for (int i = 0; i < numb_of_devices; i++) {
