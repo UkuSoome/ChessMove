@@ -597,14 +597,15 @@ void configure_spi(uint8_t numb_of_devices, device* device_arr) {
             }
         }
         nupud_korras = count_nupud;
-        count_nupud = 0;
+        
         ESP_LOGI(SPI_TAG, "NUPPE LOETUD - %x", nupud_korras);
         printf("\n");
         printf("\n");
         for (int i = 0; i < numb_of_devices; i++) {
             QT_check_buttons_and_update_board(device_arr[i]);
         }
-        vTaskDelay(500/ portTICK_PERIOD_MS);
+        count_nupud = 0;
+        vTaskDelay(1000/ portTICK_PERIOD_MS);
     }
     print_board();
 }
