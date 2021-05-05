@@ -14,11 +14,11 @@ spi_device_handle_t SB_QT0_SPI;
 spi_device_handle_t SB_QT1_SPI;
 spi_device_handle_t SB_QT2_SPI;
 spi_device_handle_t SB_QT3_SPI;
-/*bool QT_MU_1_2_INT_FLAG;
+bool QT_MU_1_2_INT_FLAG;
 bool QT_MU_3_4_INT_FLAG;
 bool QT_SU_1_2_INT_FLAG;
 bool QT_SU_3_4_INT_FLAG;
-bool QT_INT_ERR_FLAG;*/
+bool QT_INT_ERR_FLAG;
 int button_matrix[8][8];
 int fromNumb;
 int toNumb;
