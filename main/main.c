@@ -59,14 +59,14 @@ void compareBoards(void) {
         for (int j = 0; j < 8; ++j) {   
             if (checkboard[i][j] == 1 && button_matrix[i][j] == 0) {
                 checkboard[i][j] = 0;
-                fromnumb = i+1;
-                fromlet = j+1;
+                fromnumb = j+1;
+                fromlet = i+1;
                 movedone = true;
             }
             else if(checkboard[i][j] == 0 && button_matrix[i][j] == 1) {
                 checkboard[i][j] = 1;
-                tonumb = i+1;
-                tolet = j+1;
+                tonumb = j+1;
+                tolet = i+1;
                 movedone = true;
             }
         }
