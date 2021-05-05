@@ -464,8 +464,8 @@ void QT_check_buttons_and_update_board(device qt_device) {
     for (int i = 0; i < BUTTON_MATRIX_COL_SIZE; ++i) {
         if ((button_row_data & (0x01<<i))>>i) {
             if (button_matrix[qt_device.row_index][i] == 0) {
-                toLet = i+1;
-                toNumb = letterFromRow(qt_device.row_index);
+                toLet = letterFromRow(i+1);
+                toNumb = qt_device.row_index;
                 ESP_LOGI(SPI_TAG, "SIIA TEHTI KÄIK: %C%X", toLet,toNumb);
             }
             button_matrix[qt_device.row_index][i] = 1;
@@ -473,8 +473,8 @@ void QT_check_buttons_and_update_board(device qt_device) {
         }
         else {
             if (button_matrix[qt_device.row_index][i] == 1) {
-                fromLet = i+1;
-                fromNumb = letterFromRow(qt_device.row_index);
+                fromLet = letterFromRow(i+1);
+                fromNumb = qt_device.row_index;
                 ESP_LOGI(SPI_TAG, "SIIT TEHTI KÄIK: %C%X", fromLet,fromNumb);
             }
             button_matrix[qt_device.row_index][i] = 0;
