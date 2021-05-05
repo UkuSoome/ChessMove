@@ -40,7 +40,7 @@
 #define CMD_QT_RESET 0x04
 #define CMD_DISABLE_KEY 0x00
 #define CONST_QT_ANS 0x55
-#define QT_11KEY_MODE_COMMAND 0xF2 // Selects 11 key mode
+#define QT_11KEY_MODE_COMMAND 0xD2 // Selects 11 key mode
 #define MAX_TRANS_DATA_SIZE 42
 
 #define nCHNG_INT_PIN_SEL  ((1ULL<<SPI_MU_1_2_nCHANGE) | (1ULL<<SPI_MU_3_4_nCHANGE)| (1ULL<<SPI_SU_1_2_nCHANGE)| (1ULL<<SPI_SU_3_4_nCHANGE))
@@ -456,15 +456,6 @@ char letterFromRow(int row) {
 void QT_check_buttons_and_update_board(device qt_device) {
     static const char *SPI_TAG = "QT_BUTTON_CHECK";
     uint8_t button_row_data = 0; 
-    /*QT_report_request(qt_device, 0x81, 1);
-    bool a = global_rx_buffer[1] & (1 << 7);
-    ESP_LOGI(SPI_TAG, "esimene bit on : %d", a);
-    QT_report_request(qt_device, 0x82, 1);
-    a = global_rx_buffer[1] & (1 << 7);
-    ESP_LOGI(SPI_TAG, "esimene bit on : %d", a);
-    QT_report_request(qt_device, 0x84, 1);
-    a = global_rx_buffer[1] & (1 << 7);
-    ESP_LOGI(SPI_TAG, "esimene bit on : %d", a);*/
     QT_report_request(qt_device, REG_ALL_KEYS, 2);
     button_row_data = global_rx_buffer[1];
     ESP_LOGI(SPI_TAG, "Button row data: %x", button_row_data);
