@@ -508,21 +508,29 @@ void check_buttons(device* device_arr) {
             QT_MU_1_2_INT_FLAG = false;
             QT_check_buttons_and_update_board(device_arr[0]);
             QT_check_buttons_and_update_board(device_arr[1]);
+            QT_report_request(device_arr[0], REG_ALL_KEYS, 2);
+            QT_report_request(device_arr[1], REG_ALL_KEYS, 2);
         }
         else if (QT_MU_3_4_INT_FLAG == true) {
             QT_MU_3_4_INT_FLAG = false;
             QT_check_buttons_and_update_board(device_arr[2]);
             QT_check_buttons_and_update_board(device_arr[3]); 
+            QT_report_request(device_arr[2], REG_ALL_KEYS, 2);
+            QT_report_request(device_arr[3], REG_ALL_KEYS, 2);
         }
         else if (QT_SU_1_2_INT_FLAG == true) {
             QT_SU_1_2_INT_FLAG = false;
             QT_check_buttons_and_update_board(device_arr[4]);
             QT_check_buttons_and_update_board(device_arr[5]);
+            QT_report_request(device_arr[4], REG_ALL_KEYS, 2);
+            QT_report_request(device_arr[5], REG_ALL_KEYS, 2);
         }
         else if (QT_SU_3_4_INT_FLAG == true) {
             QT_SU_3_4_INT_FLAG = false;
             QT_check_buttons_and_update_board(device_arr[6]);
             QT_check_buttons_and_update_board(device_arr[7]);
+            QT_report_request(device_arr[6], REG_ALL_KEYS, 2);
+            QT_report_request(device_arr[7], REG_ALL_KEYS, 2);
         }
         else if (QT_INT_ERR_FLAG == true) {
             QT_INT_ERR_FLAG = false; 
