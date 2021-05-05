@@ -128,9 +128,34 @@ void app_main(void)
     startGame();
     vTaskDelay(1000/ portTICK_PERIOD_MS);
     while (1) {
-        check_buttons(device_arr);
-        move = buildMove(fromLet, fromNumb, toLet, toNumb);
-        sendMove(move);
+        if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
+            if (QT_MU_1_2_INT_FLAG == true) {
+                QT_MU_1_2_INT_FLAG = false;
+                QT_check_buttons_and_update_board(device_arr[0]);
+                QT_check_buttons_and_update_board(device_arr[1]);
+            }
+            else if (QT_MU_3_4_INT_FLAG == true) {
+                QT_MU_3_4_INT_FLAG = false;
+                QT_check_buttons_and_update_board(device_arr[2]);
+                QT_check_buttons_and_update_board(device_arr[3]); 
+            }
+            else if (QT_SU_1_2_INT_FLAG == true) {
+                QT_SU_1_2_INT_FLAG = false;
+                QT_check_buttons_and_update_board(device_arr[4]);
+                QT_check_buttons_and_update_board(device_arr[5]);
+            }
+            else if (QT_SU_3_4_INT_FLAG == true) {
+                QT_SU_3_4_INT_FLAG = false;
+                QT_check_buttons_and_update_board(device_arr[6]);
+                QT_check_buttons_and_update_board(device_arr[7]);
+            }
+            else if (QT_INT_ERR_FLAG == true) {
+                QT_INT_ERR_FLAG = false; 
+            }
+            move = buildMove(fromLet, fromNumb, toLet, toNumb);
+            sendMove(move);
+        }
+        
             /*for (int i = 0; i < 8; ++i) {
                  QT_check_buttons_and_update_board(device_arr[i]);
             }
