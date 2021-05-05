@@ -375,7 +375,7 @@ void QT_report_request(device qt_device, uint8_t command, uint8_t rec_length)
     trans.length=8;                         // Command is 8 bits  
     ret=spi_device_polling_transmit(qt_device.handle, &trans);  //Transmit!
     assert(ret==ESP_OK);            //Should have had no issues.
-    vTaskDelay(2/ portTICK_PERIOD_MS);
+    vTaskDelay(150/ portTICK_PERIOD_MS);
     if(trans.rx_data[0] != CONST_QT_ANS){
         ESP_LOGE(SPI_TAG,"Oops! Something went wrong - command response: 0x%x, device: %s", trans.rx_data[0], qt_device.name);
     }
@@ -389,7 +389,7 @@ void QT_report_request(device qt_device, uint8_t command, uint8_t rec_length)
         global_rx_buffer[i]=trans.rx_data[0];
         ESP_LOGI(SPI_TAG, "data recieved: %x with command %x", trans.rx_data[0], command);
        // ESP_LOGI(SPI_TAG, "Data packet #%i: %x ", i+1,trans.rx_data[0]);
-        vTaskDelay(2/ portTICK_PERIOD_MS);
+        vTaskDelay(150/ portTICK_PERIOD_MS);
     }
 }
 void QT_device_status(device qt_device)
@@ -508,29 +508,21 @@ void check_buttons(device* device_arr) {
             QT_MU_1_2_INT_FLAG = false;
             QT_check_buttons_and_update_board(device_arr[0]);
             QT_check_buttons_and_update_board(device_arr[1]);
-            QT_report_request(device_arr[0], REG_ALL_KEYS, 2);
-            QT_report_request(device_arr[1], REG_ALL_KEYS, 2);
         }
         else if (QT_MU_3_4_INT_FLAG == true) {
             QT_MU_3_4_INT_FLAG = false;
             QT_check_buttons_and_update_board(device_arr[2]);
             QT_check_buttons_and_update_board(device_arr[3]); 
-            QT_report_request(device_arr[2], REG_ALL_KEYS, 2);
-            QT_report_request(device_arr[3], REG_ALL_KEYS, 2);
         }
         else if (QT_SU_1_2_INT_FLAG == true) {
             QT_SU_1_2_INT_FLAG = false;
             QT_check_buttons_and_update_board(device_arr[4]);
             QT_check_buttons_and_update_board(device_arr[5]);
-            QT_report_request(device_arr[4], REG_ALL_KEYS, 2);
-            QT_report_request(device_arr[5], REG_ALL_KEYS, 2);
         }
         else if (QT_SU_3_4_INT_FLAG == true) {
             QT_SU_3_4_INT_FLAG = false;
             QT_check_buttons_and_update_board(device_arr[6]);
             QT_check_buttons_and_update_board(device_arr[7]);
-            QT_report_request(device_arr[6], REG_ALL_KEYS, 2);
-            QT_report_request(device_arr[7], REG_ALL_KEYS, 2);
         }
         else if (QT_INT_ERR_FLAG == true) {
             QT_INT_ERR_FLAG = false; 
