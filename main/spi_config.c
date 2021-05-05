@@ -451,7 +451,10 @@ char letterFromRow(int row) {
 void QT_check_buttons_and_update_board(device qt_device) {
     static const char *SPI_TAG = "QT_BUTTON_CHECK";
     uint8_t button_row_data = 0; 
-    QT_report_request(qt_device, REG_ALL_KEYS, 2);
+    QT_report_request(qt_device, 0x81, 1);
+    QT_report_request(qt_device, 0x82, 1);
+    QT_report_request(qt_device, 0x83, 1);
+   /* QT_report_request(qt_device, REG_ALL_KEYS, 2);
     button_row_data = global_rx_buffer[1];
     ESP_LOGI(SPI_TAG, "Button row data: %x", button_row_data);
     for (int i = 0; i < BUTTON_MATRIX_COL_SIZE; ++i) {
@@ -473,7 +476,7 @@ void QT_check_buttons_and_update_board(device qt_device) {
             button_matrix[qt_device.row_index][i] = 0;
             //ESP_LOGI(SPI_TAG,"siin real %x on nupp %x staatuses NULL", qt_device.row_index+1, i+1);
         }    
-    }
+    }*/
 }
 
 void print_board(void) {
