@@ -40,7 +40,7 @@
 #define CMD_QT_RESET 0x04
 #define CMD_DISABLE_KEY 0x00
 #define CONST_QT_ANS 0x55
-#define QT_11KEY_MODE_COMMAND 0xF2 // Selects 11 key mode
+#define QT_11KEY_MODE_COMMAND 0x72 // Selects 11 key mode
 #define MAX_TRANS_DATA_SIZE 42
 
 #define nCHNG_INT_PIN_SEL  ((1ULL<<SPI_MU_1_2_nCHANGE) | (1ULL<<SPI_MU_3_4_nCHANGE)| (1ULL<<SPI_SU_1_2_nCHANGE)| (1ULL<<SPI_SU_3_4_nCHANGE))
