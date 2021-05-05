@@ -357,8 +357,8 @@ void QT_setup(device qt_device){
     QT_setup_register(qt_device, REG_KEY9_NTHR, CMD_DISABLE_KEY);
     QT_setup_register(qt_device, REG_KEY10_NTHR, CMD_DISABLE_KEY);
     QT_setup_register(qt_device, 0x96, 0x32);
-    QT_setup_register(qt_device, 0x97, 0x00);
-    QT_setup_register(qt_device, 0x98, 0x00);
+    QT_setup_register(qt_device, 0x97, 0x00); //these have to be done
+    QT_setup_register(qt_device, 0x98, 0x00); //these have to be done otherwise one qt device only detects 1 key at a time
     //QT_control_command(qt_device, 0x0A);
 }
 void QT_report_request(device qt_device, uint8_t command, uint8_t rec_length)
@@ -463,20 +463,20 @@ void QT_check_buttons_and_update_board(device qt_device) {
     //ESP_LOGI(SPI_TAG, "Button row data: %x for device %s", button_row_data, qt_device.name);
     for (int i = 0; i < BUTTON_MATRIX_COL_SIZE; ++i) {
         if ((button_row_data & (0x01<<i))>>i) {
-            /*if (button_matrix[qt_device.row_index][i] == 0) {
+            if (button_matrix[qt_device.row_index][i] == 0) {
                 toLet = letterFromRow(qt_device.row_index);
                 toNumb = i+1;
                 ESP_LOGI(SPI_TAG, "SIIA TEHTI KÄIK: %C%X", toLet,toNumb);
-            }*/
+            }
             button_matrix[qt_device.row_index][i] = 1;
             //ESP_LOGI(SPI_TAG, "siin real %x on nupp %x staatuses UKS", qt_device.row_index+1, i+1);
         }
         else {
-            /*if (button_matrix[qt_device.row_index][i] == 1) {
+            if (button_matrix[qt_device.row_index][i] == 1) {
                 fromLet = letterFromRow(qt_device.row_index);
                 fromNumb = i+1;
                 ESP_LOGI(SPI_TAG, "SIIT TEHTI KÄIK: %C%X", fromLet,fromNumb);
-            }*/
+            }
             button_matrix[qt_device.row_index][i] = 0;
             //ESP_LOGI(SPI_TAG,"siin real %x on nupp %x staatuses NULL", qt_device.row_index+1, i+1);
         }    
