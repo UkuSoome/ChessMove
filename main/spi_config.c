@@ -355,7 +355,7 @@ void QT_setup(device qt_device){
     QT_setup_register(qt_device, REG_KEY8_NTHR, CMD_DISABLE_KEY);
     QT_setup_register(qt_device, REG_KEY9_NTHR, CMD_DISABLE_KEY);
     QT_setup_register(qt_device, REG_KEY10_NTHR, CMD_DISABLE_KEY);
-    //QT_setup_register(qt_device, 0x96, 0x32);
+    QT_setup_register(qt_device, 0x96, 0x32);
     //QT_control_command(qt_device, 0x03);
     //QT_control_command(qt_device, 0x0A);
 }
@@ -458,7 +458,7 @@ void QT_check_buttons_and_update_board(device qt_device) {
     uint8_t button_row_data = 0; 
     QT_report_request(qt_device, REG_ALL_KEYS, 2);
     button_row_data = global_rx_buffer[1];
-    ESP_LOGI(SPI_TAG, "Button row data: %x", button_row_data);
+    ESP_LOGI(SPI_TAG, "Button row data: %x for device %s", button_row_data, qt_device.name);
     for (int i = 0; i < BUTTON_MATRIX_COL_SIZE; ++i) {
         if ((button_row_data & (0x01<<i))>>i) {
             /*if (button_matrix[qt_device.row_index][i] == 0) {
@@ -503,7 +503,10 @@ void print_board(void) {
 
 void check_buttons(device* device_arr) {
     static const char *SPI_TAG = "DEBUG";
-    if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
+    for (int i=0;i<8;i++) {
+        QT_check_buttons_and_update_board(device_arr[i]);
+    }
+    /*if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
         if (QT_MU_1_2_INT_FLAG == true) {
             QT_MU_1_2_INT_FLAG = false;
             QT_check_buttons_and_update_board(device_arr[0]);
@@ -527,7 +530,7 @@ void check_buttons(device* device_arr) {
         else if (QT_INT_ERR_FLAG == true) {
             QT_INT_ERR_FLAG = false; 
         }
-    }
+    }*/
 }
 void configure_spi(uint8_t numb_of_devices, device* device_arr) {
     ESP_LOGI(SPI_TAG, "spi conf \n");
