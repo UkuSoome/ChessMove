@@ -184,6 +184,9 @@ void app_main(void)
             //print_board();
             //buttons = getButtonMatrix();
             print_board();
+            printf("\n");
+            printf("\n");
+            printf("\n");
         }
     }
 }
