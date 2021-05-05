@@ -21,10 +21,10 @@
 
 int checkboard[8][8] = {};
 
-int fromnumb;
-int fromlet;
-int tonumb;
-int tolet;
+//int fromnumb;
+//int fromlet;
+//int tonumb;
+//int tolet;
 bool movedone;
 void startGame() {
     char* starturl;
@@ -73,17 +73,7 @@ void compareBoards(void) {
     }
 }
 
-char letterFromRow(int row) {
-    if (row==1) return 'a';
-    if (row==2) return 'b';
-    if (row==3) return 'c';
-    if (row==4) return 'd';
-    if (row==5) return 'e';
-    if (row==6) return 'f';
-    if (row==7) return 'g';
-    if (row==8) return 'h';
-    return 'a';
-}
+
 void app_main(void)
 {   
     for (int i = 0; i < 8; ++i) {
@@ -114,7 +104,7 @@ void app_main(void)
     //vTaskDelay(40000/ portTICK_PERIOD_MS);
     while (1) {
         if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
-            /*if (QT_MU_1_2_INT_FLAG == true) {
+            if (QT_MU_1_2_INT_FLAG == true) {
                 QT_MU_1_2_INT_FLAG = false;
                 QT_check_buttons_and_update_board(device_arr[0]);
                 QT_check_buttons_and_update_board(device_arr[1]);
@@ -136,8 +126,10 @@ void app_main(void)
             }
             else if (QT_INT_ERR_FLAG == true) {
                 QT_INT_ERR_FLAG = false; 
-            }*/
-            for (int i = 0; i < 8; ++i) {
+            }
+            move = buildMove(fromLet, fromNumb, toLet, toNumb);
+            sendMove(move);
+            /*for (int i = 0; i < 8; ++i) {
                  QT_check_buttons_and_update_board(device_arr[i]);
             }
             QT_MU_1_2_INT_FLAG = false;
@@ -153,7 +145,7 @@ void app_main(void)
                 printf("\n");
                 sendMove(move);
                 movedone = false;
-            }
+            }*/
         }
         vTaskDelay(100/ portTICK_PERIOD_MS);    // Wait at least 100ms
 

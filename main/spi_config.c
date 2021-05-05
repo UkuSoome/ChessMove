@@ -434,6 +434,17 @@ void QT_device_status(device qt_device)
             (global_rx_buffer[1] & 0x01));
     }
 }
+char letterFromRow(int row) {
+    if (row==0) return 'a';
+    if (row==1) return 'b';
+    if (row==2) return 'c';
+    if (row==3) return 'd';
+    if (row==4) return 'e';
+    if (row==5) return 'f';
+    if (row==6) return 'g';
+    if (row==7) return 'h';
+    return 'a';
+}
 void QT_check_buttons_and_update_board(device qt_device) {
     static const char *SPI_TAG = "QT_BUTTON_CHECK";
     uint8_t button_row_data = 0; 
@@ -442,10 +453,20 @@ void QT_check_buttons_and_update_board(device qt_device) {
     ESP_LOGI(SPI_TAG, "Button row data: %x", button_row_data);
     for (int i = 0; i < BUTTON_MATRIX_COL_SIZE; ++i) {
         if ((button_row_data & (0x01<<i))>>i) {
+            if (button_matrix[qt_device.row_index][i] == 0)) {
+                toLet = letterFromRow(qt_device.row_index);
+                toNumb = i+1;
+                ESP_LOGI(SPI_TAG, "SIIA TEHTI KÄIK: %C%X", toLet,toNumb);
+            }
             button_matrix[qt_device.row_index][i] = 1;
             ESP_LOGI(SPI_TAG, "siin real %x on nupp %x staatuses UKS", qt_device.row_index+1, i+1);
         }
         else {
+            if (button_matrix[qt_device.row_index][i] == 1)) {
+                fromLet = letterFromRow(qt_device.row_index);
+                fromNumb = i+1;
+                ESP_LOGI(SPI_TAG, "SIIT TEHTI KÄIK: %C%X", fromLet,fromNumb);
+            }
             button_matrix[qt_device.row_index][i] = 0;
             ESP_LOGI(SPI_TAG,"siin real %x on nupp %x staatuses NULL", qt_device.row_index+1, i+1);
         }    
@@ -455,7 +476,7 @@ void QT_check_buttons_and_update_board(device qt_device) {
 void print_board(void) {
     printf("Printing board: \n");
     printf("\t    A B C D E F G H \n");                     // Print column legend
-    for (int i = 0; i < BUTTON_MATRIX_ROW_SIZE; ++i)
+    for (int i = 0; i < BUTTON_MATRIX_ROW_SIZE;  ++i)
     {
         printf("\t %2d", i+1);                              // Print row legend
         for (int j = 0; j < BUTTON_MATRIX_COL_SIZE; ++j)

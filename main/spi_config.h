@@ -20,7 +20,10 @@ bool QT_SU_1_2_INT_FLAG;
 bool QT_SU_3_4_INT_FLAG;
 bool QT_INT_ERR_FLAG;
 int button_matrix[8][8];
-
+int fromNumb;
+int toNumb;
+char fromLet;
+char toLet;
 void configure_spi(uint8_t, device*);
 const char* QT_handle_to_string(device);
 void QT_check_buttons_and_update_board(device);
