@@ -503,7 +503,7 @@ void print_board(void) {
 
 void check_buttons(device* device_arr) {
     static const char *SPI_TAG = "DEBUG";
-    for (int i=0;i<8<i++) {
+    for (int i=0;i<8;i++) {
         QT_check_buttons_and_update_board(device_arr[1]);
         vTaskDelay(100/ portTICK_PERIOD_MS);
     }
