@@ -359,7 +359,14 @@ void QT_setup(device qt_device){
     QT_setup_register(qt_device, 0x96, 0x32);
     QT_setup_register(qt_device, 0x97, 0x00); //these have to be done
     QT_setup_register(qt_device, 0x98, 0x00); //these have to be done otherwise one qt device only detects 1 key at a time
-    //QT_control_command(qt_device, 0x0A);
+    QT_setup_register(qt_device, 0xB0, 0x00);
+    QT_setup_register(qt_device, 0xB1, 0x70);
+    QT_setup_register(qt_device, 0xB2, 0x70);
+    QT_setup_register(qt_device, 0xB3, 0x70);
+    QT_setup_register(qt_device, 0xB4, 0x70);
+    QT_setup_register(qt_device, 0xB5, 0x70);
+    QT_setup_register(qt_device, 0xB6, 0x70);
+    QT_setup_register(qt_device, 0xB7, 0x70);
 }
 void QT_report_request(device qt_device, uint8_t command, uint8_t rec_length)
 {
