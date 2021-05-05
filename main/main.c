@@ -102,7 +102,7 @@ void app_main(void)
     //vTaskDelay(40000/ portTICK_PERIOD_MS);
     int nupud_korras = 0;
     int count_nupud = 0;
-    while (nupud_korras != 32) {
+   /* while (nupud_korras != 32) {
         /*for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (button_matrix[i][j] == 1) {
@@ -112,7 +112,7 @@ void app_main(void)
         }
         ESP_LOGI(SPI_TAG, "NUPPE LOETUD - %x", count_nupud);
         nupud_korras = count_nupud;
-        ESP_LOGI(SPI_TAG, "NUPPE KORRAS - %x", nupud_korras);*/
+        ESP_LOGI(SPI_TAG, "NUPPE KORRAS - %x", nupud_korras);
         print_board();
         printf("\n");
         printf("\n");
@@ -121,7 +121,7 @@ void app_main(void)
         }
         count_nupud = 0;
         vTaskDelay(1000/ portTICK_PERIOD_MS);
-    }
+    }*/
     print_board();
     printf("START");
     printf("\n");
@@ -129,7 +129,7 @@ void app_main(void)
     vTaskDelay(1000/ portTICK_PERIOD_MS);
     while (1) {
         if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
-            /*if (QT_MU_1_2_INT_FLAG == true) {
+            if (QT_MU_1_2_INT_FLAG == true) {
                 QT_MU_1_2_INT_FLAG = false;
                 QT_check_buttons_and_update_board(device_arr[0]);
                 QT_check_buttons_and_update_board(device_arr[1]);
@@ -151,9 +151,9 @@ void app_main(void)
             }
             else if (QT_INT_ERR_FLAG == true) {
                 QT_INT_ERR_FLAG = false; 
-            }*/
+            }
 
-            for (int i = 0; i < 8; ++i) {
+            /*for (int i = 0; i < 8; ++i) {
                  QT_check_buttons_and_update_board(device_arr[i]);
             }
             QT_MU_1_2_INT_FLAG = false;
@@ -164,7 +164,7 @@ void app_main(void)
             sendMove(move);
             printf("\n");
             printf("\n");
-            printf("\n");
+            printf("\n");*/
             /*compareBoards();
             if (movedone) {
                 pos1 = letterFromRow(fromlet);
@@ -178,13 +178,13 @@ void app_main(void)
         }
         vTaskDelay(100/ portTICK_PERIOD_MS);    // Wait at least 100ms
 
-        /*if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
+        if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
             prev_time = esp_timer_get_time();
             //printf("Print number: %d\n", print_counter++);
             //print_board();
             //buttons = getButtonMatrix();
             printboard();
-        }*/
+        }
     }
 }
 
