@@ -61,6 +61,11 @@
 #define REG_LAST_COMMAND 0xC7
 #define REG_ERROR_KEYS 0xC5
 
+bool QT_MU_1_2_INT_FLAG;
+bool QT_MU_3_4_INT_FLAG;
+bool QT_SU_1_2_INT_FLAG;
+bool QT_SU_3_4_INT_FLAG;
+bool QT_INT_ERR_FLAG;
 
 esp_err_t ret;
 static const char *SPI_TAG = "SPICONF";
