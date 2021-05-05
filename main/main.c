@@ -114,7 +114,7 @@ void app_main(void)
     //vTaskDelay(40000/ portTICK_PERIOD_MS);
     while (1) {
         if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
-            if (QT_MU_1_2_INT_FLAG == true) {
+            /*if (QT_MU_1_2_INT_FLAG == true) {
                 QT_MU_1_2_INT_FLAG = false;
                 QT_check_buttons_and_update_board(device_arr[0]);
                 QT_check_buttons_and_update_board(device_arr[1]);
@@ -136,19 +136,27 @@ void app_main(void)
             }
             else if (QT_INT_ERR_FLAG == true) {
                 QT_INT_ERR_FLAG = false; 
+            }*/
+            for (int i = 0; i < 8; ++i) {
+                 QT_check_buttons_and_update_board(device_arr[i]);
+            }
+            QT_MU_1_2_INT_FLAG = false;
+            QT_MU_3_4_INT_FLAG = false;
+            QT_SU_1_2_INT_FLAG = false;
+            QT_SU_3_4_INT_FLAG = false;
+            compareBoards();
+            if (movedone) {
+                pos1 = letterFromRow(fromlet);
+                pos2 = letterFromRow(tolet);
+                move = buildMove(pos1, fromnumb, pos2, tonumb);
+                printf(move);
+                printf("\n");
+                sendMove(move);
+                movedone = false;
             }
         }
         vTaskDelay(100/ portTICK_PERIOD_MS);    // Wait at least 100ms
-        compareBoards();
-        if (movedone) {
-            pos1 = letterFromRow(fromlet);
-            pos2 = letterFromRow(tolet);
-            move = buildMove(pos1, fromnumb, pos2, tonumb);
-            printf(move);
-            printf("\n");
-            sendMove(move);
-            movedone = false;
-        }
+
         /*if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
             prev_time = esp_timer_get_time();
             //printf("Print number: %d\n", print_counter++);
