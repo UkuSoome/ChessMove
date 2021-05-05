@@ -597,6 +597,6 @@ void configure_spi(uint8_t numb_of_devices, device* device_arr) {
             }
         }
     }
-    print_board(button_matrix);
+    print_board();
 }
 
