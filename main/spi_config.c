@@ -451,7 +451,7 @@ char letterFromRow(int row) {
 void QT_check_buttons_and_update_board(device qt_device) {
     static const char *SPI_TAG = "QT_BUTTON_CHECK";
     uint8_t button_row_data = 0; 
-    QT_report_request(qt_device, 0x81, 1);
+    /*QT_report_request(qt_device, 0x81, 1);
     bool a = global_rx_buffer[1] & (1 << 7);
     ESP_LOGI(SPI_TAG, "esimene bit on : %d", a);
     QT_report_request(qt_device, 0x82, 1);
@@ -459,30 +459,30 @@ void QT_check_buttons_and_update_board(device qt_device) {
     ESP_LOGI(SPI_TAG, "esimene bit on : %d", a);
     QT_report_request(qt_device, 0x84, 1);
     a = global_rx_buffer[1] & (1 << 7);
-    ESP_LOGI(SPI_TAG, "esimene bit on : %d", a);
-   /* QT_report_request(qt_device, REG_ALL_KEYS, 2);
+    ESP_LOGI(SPI_TAG, "esimene bit on : %d", a);*/
+    QT_report_request(qt_device, REG_ALL_KEYS, 2);
     button_row_data = global_rx_buffer[1];
     ESP_LOGI(SPI_TAG, "Button row data: %x", button_row_data);
     for (int i = 0; i < BUTTON_MATRIX_COL_SIZE; ++i) {
         if ((button_row_data & (0x01<<i))>>i) {
-            if (button_matrix[qt_device.row_index][i] == 0) {
+            /*if (button_matrix[qt_device.row_index][i] == 0) {
                 toLet = letterFromRow(qt_device.row_index);
                 toNumb = i+1;
                 ESP_LOGI(SPI_TAG, "SIIA TEHTI KÄIK: %C%X", toLet,toNumb);
-            }
+            }*/
             button_matrix[qt_device.row_index][i] = 1;
             //ESP_LOGI(SPI_TAG, "siin real %x on nupp %x staatuses UKS", qt_device.row_index+1, i+1);
         }
         else {
-            if (button_matrix[qt_device.row_index][i] == 1) {
+            /*if (button_matrix[qt_device.row_index][i] == 1) {
                 fromLet = letterFromRow(qt_device.row_index);
                 fromNumb = i+1;
                 ESP_LOGI(SPI_TAG, "SIIT TEHTI KÄIK: %C%X", fromLet,fromNumb);
-            }
+            }*/
             button_matrix[qt_device.row_index][i] = 0;
             //ESP_LOGI(SPI_TAG,"siin real %x on nupp %x staatuses NULL", qt_device.row_index+1, i+1);
         }    
-    }*/
+    }
 }
 
 void print_board(void) {
@@ -502,6 +502,34 @@ void print_board(void) {
             }
         }
         printf("\n");
+    }
+}
+
+void check_buttons(void) {
+    if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
+        if (QT_MU_1_2_INT_FLAG == true) {
+            QT_MU_1_2_INT_FLAG = false;
+            QT_check_buttons_and_update_board(device_arr[0]);
+            QT_check_buttons_and_update_board(device_arr[1]);
+        }
+        else if (QT_MU_3_4_INT_FLAG == true) {
+            QT_MU_3_4_INT_FLAG = false;
+            QT_check_buttons_and_update_board(device_arr[2]);
+            QT_check_buttons_and_update_board(device_arr[3]); 
+        }
+        else if (QT_SU_1_2_INT_FLAG == true) {
+            QT_SU_1_2_INT_FLAG = false;
+            QT_check_buttons_and_update_board(device_arr[4]);
+            QT_check_buttons_and_update_board(device_arr[5]);
+        }
+        else if (QT_SU_3_4_INT_FLAG == true) {
+            QT_SU_3_4_INT_FLAG = false;
+            QT_check_buttons_and_update_board(device_arr[6]);
+            QT_check_buttons_and_update_board(device_arr[7]);
+        }
+        else if (QT_INT_ERR_FLAG == true) {
+            QT_INT_ERR_FLAG = false; 
+        }
     }
 }
 void configure_spi(uint8_t numb_of_devices, device* device_arr) {
