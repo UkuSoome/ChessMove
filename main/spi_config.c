@@ -380,7 +380,7 @@ void QT_report_request(device qt_device, uint8_t command, uint8_t rec_length)
         ret=spi_device_polling_transmit(qt_device.handle, &trans);  //Transmit!
         assert(ret==ESP_OK);            //Should have had no issues.
         global_rx_buffer[i]=trans.rx_data[0];
-        ESP_LOGI(SPI_TAG, "Data packet #%i: %x ", i+1,trans.rx_data[0]);
+       // ESP_LOGI(SPI_TAG, "Data packet #%i: %x ", i+1,trans.rx_data[0]);
         vTaskDelay(2/ portTICK_PERIOD_MS);
     }
 }
@@ -407,7 +407,6 @@ void QT_device_status(device qt_device)
         (global_rx_buffer[0] & 0x01));
     if (((global_rx_buffer[0] & 0x10)>>4)==1)
     {
-        // TODO: proper defines and SPI error handling
         ESP_LOGE(SPI_TAG, "KEY ERROR DETECTED!");
         QT_report_request(qt_device, REG_ERROR_KEYS, 2);
         ESP_LOGI(SPI_TAG, "Keys in error: \n"
@@ -444,10 +443,11 @@ void QT_check_buttons_and_update_board(device qt_device) {
     for (int i = 0; i < BUTTON_MATRIX_COL_SIZE; ++i) {
         if ((button_row_data & (0x01<<i))>>i) {
             button_matrix[qt_device.row_index][i] = 1;
+            ESP_LOGI(SPI_TAG, "siin real %x on nupp %x staatuses UKS", qt_device.row_index+1, i+1);
         }
         else {
             button_matrix[qt_device.row_index][i] = 0;
-
+            ESP_LOGI(SPI_TAG,"siin real %x on nupp %x staatuses NULL", qt_device.row_index+1, i+1)
 
         }    
     }

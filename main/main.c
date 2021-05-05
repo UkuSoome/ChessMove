@@ -111,7 +111,7 @@ void app_main(void)
     int64_t prev_time = 0;
     char pos1;
     char pos2;
-    vTaskDelay(40000/ portTICK_PERIOD_MS);
+    //vTaskDelay(40000/ portTICK_PERIOD_MS);
     while (1) {
         if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
             if (QT_MU_1_2_INT_FLAG == true) {
