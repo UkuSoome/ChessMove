@@ -348,7 +348,7 @@ void QT_setup(device qt_device){
     QT_setup_register(qt_device, REG_KEY8_NTHR, CMD_DISABLE_KEY);
     QT_setup_register(qt_device, REG_KEY9_NTHR, CMD_DISABLE_KEY);
     QT_setup_register(qt_device, REG_KEY10_NTHR, CMD_DISABLE_KEY);
-    //QT_control_command(qt_device, 0x03);
+    QT_control_command(qt_device, 0x03);
     QT_setup_register(qt_device, 0x92, 0xff);
     QT_control_command(qt_device, 0x0A);
 }
@@ -604,6 +604,7 @@ void configure_spi(uint8_t numb_of_devices, device* device_arr) {
         for (int i = 0; i < numb_of_devices; i++) {
             QT_check_buttons_and_update_board(device_arr[i]);
         }
+        vTaskDelay(500/ portTICK_PERIOD_MS);
     }
     print_board();
 }
