@@ -474,7 +474,7 @@ void QT_check_buttons_and_update_board(device qt_device) {
                 toLet = letterFromRow(i);
                 toNumb = qt_device.row_index+1;
                 ESP_LOGI(SPI_TAG, "SIIA TEHTI KÄIK: %C%X", toLet,toNumb);
-                checkTo = 1;
+                checkTo++;
             }
             button_matrix[qt_device.row_index][i] = 1;
             //ESP_LOGI(SPI_TAG, "siin real %x on nupp %x staatuses UKS", qt_device.row_index+1, i+1);
@@ -484,7 +484,7 @@ void QT_check_buttons_and_update_board(device qt_device) {
                 fromLet = letterFromRow(i);
                 fromNumb = qt_device.row_index+1;
                 ESP_LOGI(SPI_TAG, "SIIT TEHTI KÄIK: %C%X", fromLet,fromNumb);
-                checkFrom = 1;
+                checkTo++;
             }
             button_matrix[qt_device.row_index][i] = 0;
             //ESP_LOGI(SPI_TAG,"siin real %x on nupp %x staatuses NULL", qt_device.row_index+1, i+1);

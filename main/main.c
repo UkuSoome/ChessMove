@@ -152,7 +152,7 @@ void app_main(void)
             else if (QT_INT_ERR_FLAG == true) {
                 QT_INT_ERR_FLAG = false; 
             }
-            if (checkFrom &&  checkTo) {
+            if (checkTo == 2) {
                 move = buildMove(fromLet, fromNumb, toLet, toNumb);
                 sendMove(move);
                 checkFrom = 0;
