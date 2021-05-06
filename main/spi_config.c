@@ -511,7 +511,7 @@ void print_board(void) {
 
 void check_buttons(device* device_arr) {
     static const char *SPI_TAG = "DEBUG";
-    if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_S U_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
+    if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
         if (QT_MU_1_2_INT_FLAG == true) {
             QT_MU_1_2_INT_FLAG = false;
             QT_check_buttons_and_update_board(device_arr[0]);
