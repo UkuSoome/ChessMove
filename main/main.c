@@ -104,8 +104,8 @@ void app_main(void)
         check_buttons(device_arr);
         vTaskDelay(100/ portTICK_PERIOD_MS);    // Wait at least 100ms
         check = compareBoards();
-        buildMove(fromLet, fromNumb, toLet, toNumb);
-        sendMove();
+        move = buildMove(fromLet, fromNumb, toLet, toNumb);
+        sendMove(move);
         fromLet;
         fromNumb;
         toNumb;
