@@ -25,7 +25,7 @@ int checkboard[8][8] = {};
 //int fromlet;
 //int tonumb;
 //int tolet;
-bool movedone;
+int count = 0;
 void startGame() {
     char* starturl;
     asprintf(&starturl, "http://%s:24377/api/start/%d", SERVERIP, BOARDID);
@@ -54,8 +54,8 @@ void printboard(void) {
         printf("\n");
     }
 }
-int compareBoards(void) {
-    int count = 0;
+void compareBoards(void) {
+
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {   
             if (checkboard[i][j] == 1 && button_matrix[i][j] == 0) {
@@ -72,7 +72,6 @@ int compareBoards(void) {
             }
         }
     }
-    return count;
 }
 
 
@@ -94,8 +93,6 @@ void app_main(void)
     char pos2;
     int check;
     vTaskDelay(1000/ portTICK_PERIOD_MS);
-    print_board();
-    printboard();
     printf("START"); 
     printf("\n");
     startGame();
@@ -103,13 +100,11 @@ void app_main(void)
 
         check_buttons(device_arr);
         vTaskDelay(100/ portTICK_PERIOD_MS);    // Wait at least 100ms
-        check = compareBoards();
-        move = buildMove(fromLet, fromNumb, toLet, toNumb);
-        sendMove(move);
-        fromLet = 'i';
-        fromNumb = 0;
-        toNumb = 0;
-        toLet = 'i';
+        compareBoards();
+        if (count == 2) {}
+            move = buildMove(fromLet, fromNumb, toLet, toNumb);
+            sendMove(move);
+        }
         if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
             prev_time = esp_timer_get_time();
             printf("\n");
