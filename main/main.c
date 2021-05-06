@@ -54,23 +54,25 @@ void printboard(void) {
         printf("\n");
     }
 }
-void compareBoards(void) {
+int compareBoards(void) {
+    int count = 0;
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {   
             if (checkboard[i][j] == 1 && button_matrix[i][j] == 0) {
                 checkboard[i][j] = 0;
-                //fromnumb = j+1;
-                //fromlet = i+1;
-                //movedone = true;
+                fromNumb = j+1;
+                fromLet = letterFromRow(i);
+                count++;
             }
             else if(checkboard[i][j] == 0 && button_matrix[i][j] == 1) {
                 checkboard[i][j] = 1;
-               // tonumb = j+1;
-               // tolet = i+1;
-               // movedone = true;
+                toLet = letterFromRow(i);
+                toNumb = j+1;
+                count++;
             }
         }
     }
+    return count;
 }
 
 
@@ -90,38 +92,9 @@ void app_main(void)
     int64_t prev_time = 0;
     char pos1;
     char pos2;
-    int nupud_korras = 0;
-    int count_nupud = 0;
+    int check;
     vTaskDelay(1000/ portTICK_PERIOD_MS);
 
-    /*while (nupud_korras != 32) {
-        check_buttons(device_arr);
-        for (int i = 0; i < 8; ++i) {
-            for (int j = 0; j < 8; ++j) {
-                if (button_matrix[i][j]) {
-                    count_nupud++;
-                }
-            }
-        }
-        nupud_korras = count_nupud;
-        if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
-            prev_time = esp_timer_get_time();
-            ESP_LOGI("debu", "count nupud - %x", count_nupud);
-            ESP_LOGI("debu", "nupud korras - %x", nupud_korras);
-        }
-    }*/
-    /*for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {
-            if (i==0||i==1||i==6||i==7) {
-                checkboard[i][j] = 1;
-                button_matrix[i][j] = 1;
-            }
-            else {
-                checkboard[i][j] = 0;
-                button_matrix[i][j] = 0;
-            }
-        }
-    }*/
     print_board();
     printboard();
     printf("START"); 
@@ -131,9 +104,12 @@ void app_main(void)
 
         check_buttons(device_arr);
         vTaskDelay(100/ portTICK_PERIOD_MS);    // Wait at least 100ms
-        compareBoards();
+        check = compareBoards();
         if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
             prev_time = esp_timer_get_time();
+            ESP_LOGI("DEBUG", "COUNT - %x", check);
+            printf("\n");
+            printf("\n");
             print_board();
             printf("\n");
             printf("\n");
