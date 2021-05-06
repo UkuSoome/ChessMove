@@ -470,22 +470,23 @@ void QT_check_buttons_and_update_board(device qt_device) {
     //ESP_LOGI(SPI_TAG, "Button row data: %x for device %s", button_row_data, qt_device.name);
     for (int i = 0; i < BUTTON_MATRIX_COL_SIZE; ++i) {
         if ((button_row_data & (0x01<<i))>>i) {
-            /*if (button_matrix[qt_device.row_index][i] == 0) {
-                toLet = letterFromRow(i);
-                toNumb = qt_device.row_index+1;
-                ESP_LOGI(SPI_TAG, "SIIA TEHTI KÄIK: %C%X", toLet,toNumb);
-                checkTo++;
-            }*/
+           // if (button_matrix[qt_device.row_index][i] == 0) {
+
+           // }
+            toLet = letterFromRow(i);
+            toNumb = qt_device.row_index+1;
+            ESP_LOGI(SPI_TAG, "SIIA TEHTI KÄIK: %C%X", toLet,toNumb);
+            checkTo++;
             button_matrix[qt_device.row_index][i] = 1;
             //ESP_LOGI(SPI_TAG, "siin real %x on nupp %x staatuses UKS", qt_device.row_index+1, i+1);
         }
         else {
-            /*if (button_matrix[qt_device.row_index][i] == 1) {
+            if (button_matrix[qt_device.row_index][i] == 1) {
                 fromLet = letterFromRow(i);
                 fromNumb = qt_device.row_index+1;
                 ESP_LOGI(SPI_TAG, "SIIT TEHTI KÄIK: %C%X", fromLet,fromNumb);
                 checkTo++;
-            }*/
+            }
             button_matrix[qt_device.row_index][i] = 0;
             //ESP_LOGI(SPI_TAG,"siin real %x on nupp %x staatuses NULL", qt_device.row_index+1, i+1);
         }    
@@ -514,7 +515,7 @@ void print_board(void) {
 
 void check_buttons(device* device_arr) {
     static const char *SPI_TAG = "DEBUG";
-    if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
+    if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_S U_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
         if (QT_MU_1_2_INT_FLAG == true) {
             QT_MU_1_2_INT_FLAG = false;
             QT_check_buttons_and_update_board(device_arr[0]);
