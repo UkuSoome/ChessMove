@@ -101,9 +101,10 @@ void app_main(void)
         check_buttons(device_arr);
         vTaskDelay(100/ portTICK_PERIOD_MS);    // Wait at least 100ms
         compareBoards();
-        if (count == 2) {}
+        if (count == 2) {
             move = buildMove(fromLet, fromNumb, toLet, toNumb);
             sendMove(move);
+            ESP_LOGI("DEBUG","MOVE DONE - %s", move);
         }
         if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
             prev_time = esp_timer_get_time();
