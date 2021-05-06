@@ -80,12 +80,16 @@ void app_main(void)
         for (int j = 0; j < 8; ++j) {
             if (i==0||i==1||i==6||i==7) {
                 checkboard[i][j] = 1;
+                button_matrix[i][j] = 1;
             }
             else {
                 checkboard[i][j] = 0;
+                button_matrix[i][j] = 0;
             }
         }
     }
+    printboard();
+    print_board();
     configure_wifi();
     vTaskDelay(1000/ portTICK_PERIOD_MS);
 
@@ -189,7 +193,7 @@ void app_main(void)
             //printf("Print number: %d\n", print_counter++);
             //print_board();
             //buttons = getButtonMatrix();
-            print_board();
+            //print_board();
             printf("\n");
             printf("\n");
             printf("\n");
