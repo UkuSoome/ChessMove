@@ -94,7 +94,6 @@ void app_main(void)
     char pos2;
     int check;
     vTaskDelay(1000/ portTICK_PERIOD_MS);
-
     print_board();
     printboard();
     printf("START"); 
@@ -105,9 +104,14 @@ void app_main(void)
         check_buttons(device_arr);
         vTaskDelay(100/ portTICK_PERIOD_MS);    // Wait at least 100ms
         check = compareBoards();
+        buildMove(fromLet, fromNumb, toLet, toNumb);
+        sendMove();
+        fromLet;
+        fromNumb;
+        toNumb;
+        toLet;
         if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
             prev_time = esp_timer_get_time();
-            ESP_LOGI("DEBUG", "COUNT - %x", check);
             printf("\n");
             printf("\n");
             print_board();
