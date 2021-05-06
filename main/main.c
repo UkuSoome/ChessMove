@@ -103,11 +103,8 @@ void app_main(void)
     char pos2;
     int nupud_korras = 0;
     int count_nupud = 0;
-
-    printf("START");
-    printf("\n");
-    startGame();
     vTaskDelay(1000/ portTICK_PERIOD_MS);
+    
     while (nupud_korras != 32) {
         check_buttons(device_arr);
         for (int i = 0; i < 8; ++i) {
@@ -123,8 +120,10 @@ void app_main(void)
             ESP_LOGI("debu", "count nupud - %x", count_nupud);
             ESP_LOGI("debu", "nupud korras - %x", nupud_korras);
         }
-
     }
+    printf("START");
+    printf("\n");
+    startGame();
     while (1) {
         /*if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
             if (QT_MU_1_2_INT_FLAG == true) {
@@ -158,7 +157,6 @@ void app_main(void)
             }
         }*/
         check_buttons(device_arr);
-        
             /*for (int i = 0; i < 8; ++i) {
                  QT_check_buttons_and_update_board(device_arr[i]);
             }
