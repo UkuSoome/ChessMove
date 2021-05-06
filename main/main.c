@@ -80,11 +80,9 @@ void app_main(void)
         for (int j = 0; j < 8; ++j) {
             if (i==0||i==1||i==6||i==7) {
                 checkboard[i][j] = 1;
-                button_matrix[i][j] = 1;
             }
             else {
                 checkboard[i][j] = 0;
-                button_matrix[i][j] = 0;
             }
         }
     }
@@ -104,7 +102,7 @@ void app_main(void)
     int nupud_korras = 0;
     int count_nupud = 0;
     vTaskDelay(1000/ portTICK_PERIOD_MS);
-    
+
     while (nupud_korras != 32) {
         check_buttons(device_arr);
         for (int i = 0; i < 8; ++i) {
@@ -121,6 +119,8 @@ void app_main(void)
             ESP_LOGI("debu", "nupud korras - %x", nupud_korras);
         }
     }
+    print_board();
+    printboard();
     printf("START");
     printf("\n");
     startGame();
