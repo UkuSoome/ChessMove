@@ -88,8 +88,6 @@ void app_main(void)
             }
         }
     }
-    printboard();
-    print_board();
     configure_wifi();
     vTaskDelay(1000/ portTICK_PERIOD_MS);
 
@@ -103,36 +101,15 @@ void app_main(void)
     int64_t prev_time = 0;
     char pos1;
     char pos2;
-    //vTaskDelay(40000/ portTICK_PERIOD_MS);
     int nupud_korras = 0;
     int count_nupud = 0;
-   /* while (nupud_korras != 32) {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (button_matrix[i][j] == 1) {
-                    count_nupud++;
-                }
-            }
-        }
-        ESP_LOGI(SPI_TAG, "NUPPE LOETUD - %x", count_nupud);
-        nupud_korras = count_nupud;
-        ESP_LOGI(SPI_TAG, "NUPPE KORRAS - %x", nupud_korras);
-        print_board();
-        printf("\n");
-        printf("\n");
-        for (int i = 0; i < numb_of_devices; i++) {
-            QT_check_buttons_and_update_board(device_arr[i]);
-        }
-        count_nupud = 0;
-        vTaskDelay(1000/ portTICK_PERIOD_MS);
-    }*/
-    print_board();
+
     printf("START");
     printf("\n");
     startGame();
     vTaskDelay(1000/ portTICK_PERIOD_MS);
     while (1) {
-        if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
+        /*if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
             if (QT_MU_1_2_INT_FLAG == true) {
                 QT_MU_1_2_INT_FLAG = false;
                 QT_check_buttons_and_update_board(device_arr[0]);
@@ -162,7 +139,8 @@ void app_main(void)
                 checkFrom = 0;
                 checkTo = 0;
             }
-        }
+        }*/
+        check_buttons(device_arr);
         
             /*for (int i = 0; i < 8; ++i) {
                  QT_check_buttons_and_update_board(device_arr[i]);
@@ -193,7 +171,7 @@ void app_main(void)
             //printf("Print number: %d\n", print_counter++);
             //print_board();
             //buttons = getButtonMatrix();
-            //print_board();
+            print_board();
             printf("\n");
             printf("\n");
             printf("\n");
