@@ -101,7 +101,7 @@ void app_main(void)
         check_buttons(device_arr);
         vTaskDelay(100/ portTICK_PERIOD_MS);    // Wait at least 100ms
         //compareBoards();
-        if (checkTO == 2) {
+        if (checkTo == 2) {
             move = buildMove(fromLet, fromNumb, toLet, toNumb);
             sendMove(move);
             ESP_LOGI("DEBUG","MOVE DONE - %s", move);
