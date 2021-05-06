@@ -54,24 +54,24 @@ void printboard(void) {
         printf("\n");
     }
 }
-/*void compareBoards(void) {
+void compareBoards(void) {
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {   
             if (checkboard[i][j] == 1 && button_matrix[i][j] == 0) {
                 checkboard[i][j] = 0;
-                fromnumb = j+1;
-                fromlet = i+1;
-                movedone = true;
+                //fromnumb = j+1;
+                //fromlet = i+1;
+                //movedone = true;
             }
             else if(checkboard[i][j] == 0 && button_matrix[i][j] == 1) {
                 checkboard[i][j] = 1;
-                tonumb = j+1;
-                tolet = i+1;
-                movedone = true;
+               // tonumb = j+1;
+               // tolet = i+1;
+               // movedone = true;
             }
         }
     }
-}*/
+}
 
 
 void app_main(void)
@@ -110,7 +110,7 @@ void app_main(void)
             ESP_LOGI("debu", "nupud korras - %x", nupud_korras);
         }
     }*/
-    for (int i = 0; i < 8; ++i) {
+    /*for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             if (i==0||i==1||i==6||i==7) {
                 checkboard[i][j] = 1;
@@ -121,75 +121,24 @@ void app_main(void)
                 button_matrix[i][j] = 0;
             }
         }
-    }
+    }*/
     print_board();
     printboard();
     printf("START"); 
     printf("\n");
     startGame();
     while (1) {
-        /*if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
-            if (QT_MU_1_2_INT_FLAG == true) {
-                QT_MU_1_2_INT_FLAG = false;
-                QT_check_buttons_and_update_board(device_arr[0]);
-                QT_check_buttons_and_update_board(device_arr[1]);
-            }
-            else if (QT_MU_3_4_INT_FLAG == true) {
-                QT_MU_3_4_INT_FLAG = false;
-                QT_check_buttons_and_update_board(device_arr[2]);
-                QT_check_buttons_and_update_board(device_arr[3]); 
-            }
-            else if (QT_SU_1_2_INT_FLAG == true) {
-                QT_SU_1_2_INT_FLAG = false;
-                QT_check_buttons_and_update_board(device_arr[4]);
-                QT_check_buttons_and_update_board(device_arr[5]);
-            }
-            else if (QT_SU_3_4_INT_FLAG == true) {
-                QT_SU_3_4_INT_FLAG = false;
-                QT_check_buttons_and_update_board(device_arr[6]);
-                QT_check_buttons_and_update_board(device_arr[7]);
-            }
-            else if (QT_INT_ERR_FLAG == true) {
-                QT_INT_ERR_FLAG = false; 
-            }
-            if (checkTo == 2) {
-                move = buildMove(fromLet, fromNumb, toLet, toNumb);
-                sendMove(move);
-                checkFrom = 0;
-                checkTo = 0;
-            }
-        }*/
-        check_buttons(device_arr);
-            /*for (int i = 0; i < 8; ++i) {
-                 QT_check_buttons_and_update_board(device_arr[i]);
-            }
-            QT_MU_1_2_INT_FLAG = false;
-            QT_MU_3_4_INT_FLAG = false;
-            QT_SU_1_2_INT_FLAG = false;
-            QT_SU_3_4_INT_FLAG = false;
-            move = buildMove(fromLet, fromNumb, toLet, toNumb);
-            sendMove(move);
-            printf("\n");
-            printf("\n");
-            printf("\n");*/
-            /*compareBoards();
-            if (movedone) {
-                pos1 = letterFromRow(fromlet);
-                pos2 = letterFromRow(tolet);
-                move = buildMove(pos1, fromnumb, pos2, tonumb);
-                printf(move);
-                printf("\n");
-                sendMove(move);
-                movedone = false;
-            }*/
-        vTaskDelay(100/ portTICK_PERIOD_MS);    // Wait at least 100ms
 
+        check_buttons(device_arr);
+        vTaskDelay(100/ portTICK_PERIOD_MS);    // Wait at least 100ms
+        compareBoards();
         if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
             prev_time = esp_timer_get_time();
-            //printf("Print number: %d\n", print_counter++);
-            //print_board();
-            //buttons = getButtonMatrix();
             print_board();
+            printf("\n");
+            printf("\n");
+            printf("\n");
+            printboard();
             printf("\n");
             printf("\n");
             printf("\n");
