@@ -106,10 +106,10 @@ void app_main(void)
         check = compareBoards();
         move = buildMove(fromLet, fromNumb, toLet, toNumb);
         sendMove(move);
-        fromLet;
-        fromNumb;
-        toNumb;
-        toLet;
+        fromLet = 'i';
+        fromNumb = 0;
+        toNumb = 0;
+        toLet = 'i';
         if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
             prev_time = esp_timer_get_time();
             printf("\n");
