@@ -451,15 +451,15 @@ void QT_device_status(device qt_device)
             (global_rx_buffer[1] & 0x01));
     }
 }
-char letterFromRow(int row) {
-    if (row==0) return 'a';
-    if (row==1) return 'b';
-    if (row==2) return 'c';
-    if (row==3) return 'd';
-    if (row==4) return 'e';
-    if (row==5) return 'f';
-    if (row==6) return 'g';
-    if (row==7) return 'h';
+char letterFromColumn(int column) {
+    if (column==0) return 'a';
+    if (column==1) return 'b';
+    if (column==2) return 'c';
+    if (column==3) return 'd';
+    if (column==4) return 'e';
+    if (column==5) return 'f';
+    if (column==6) return 'g';
+    if (column==7) return 'h';
     return 'a';
 }
 void QT_check_buttons_and_update_board(device qt_device) {
@@ -470,7 +470,7 @@ void QT_check_buttons_and_update_board(device qt_device) {
     for (int i = 0; i < BUTTON_MATRIX_COL_SIZE; ++i) {
         if ((button_row_data & (0x01<<i))>>i) {
             if (button_matrix[qt_device.row_index][i] == 0) {
-                toLet = letterFromRow(i);
+                toLet = letterFromColumn(i);
                 toNumb = qt_device.row_index+1;
                 ESP_LOGI(SPI_TAG, "SIIA TEHTI KÄIK: %C%X", toLet,toNumb);
                 checkTo++;
@@ -479,7 +479,7 @@ void QT_check_buttons_and_update_board(device qt_device) {
         }
         else {
             if (button_matrix[qt_device.row_index][i] == 1) {
-                fromLet = letterFromRow(i);
+                fromLet = letterFromColumn(i);
                 fromNumb = qt_device.row_index+1;
                 ESP_LOGI(SPI_TAG, "SIIT TEHTI KÄIK: %C%X", fromLet,fromNumb);
                 checkTo++;
