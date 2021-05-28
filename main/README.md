@@ -28,7 +28,7 @@
 
 `sendMove(char* move)` - Sends the previously built move to the server.
 
-1) move - A json message built with buildMove() function and sent to the server.
+move - A json message built with buildMove() function and sent to the server.
 
 `app_main` - Calls configure_wifi() and configurespi() functions and then starts the game. Loops to read buttons and send the data to the server.
 
