@@ -86,26 +86,40 @@ All the ESP32 pin connections and commands to send to the button microcontroller
 
 `initBothBoardsBus()` - Initializes both of the SPI buses the ESP32 has.
 
-`addDeviceToBus()` - Adds all 8 button microcontrollers to a SPI bus.
+`addDeviceToBus(hostid, devconfig, devicehandle)` - Adds all 8 button microcontrollers to a SPI bus.
 
-`QT_handle_to_string` - Mostly for debugging purposes. All of the button microcontrollers have a device handle and this function returns the device name as a string based on them.
+1) hostid - Which SPI bus to add the device handle to. HSPI_HOST and VSPI_HOST are the hosts defined by ESP-IDF.
+2) devconfig - MB_QT0_devConfigStruct defined in ### Structs
+3) devicehandle - MB_QT0_SPI for an example. Every button microcontroller has their own device handle.
 
-`QT_reset()` - Used to send the command to reset button microcontrollers.
+`QT_handle_to_string()` - Mostly for debugging purposes. All of the button microcontrollers have a device handle and this function returns the device name as a string based on them.
 
-`QT_setup_register()` - Used to send the commands to configure button microcontrollers.
+`QT_reset(qt_device)` - Used to send the command to reset button microcontrollers.
 
-`QT_setup()` - Calls out QT_setup_register() with different hex values to configure all the necessary values for button microcontrollers.
+`QT_setup_register(qt_device, QT_register, command))` - Used to send the commands to configure button microcontrollers.
 
-`QT_report_request()` - Used to read data from button microcontrollers about the status of all buttons.
+1) qt_device -  One device from the device array.
+2) qt_register - Which register to send the command to. Value defined in the button microcontroller datasheet.
+3) command - Which command to send to that register. Value defined in the button microncontroller datasheet.
+
+`QT_setup(qt_device)` - Calls out QT_setup_register() with different hex values to configure all the necessary values for button microcontrollers.
+
+`QT_report_request(qt_device, command, rec_length)` - Used to read data from button microcontrollers about the status of all buttons.
+
+1) qt_device - One device from the device array. 
+2) command - Hex value to ask for data of all buttons.
+3) rec_length - Since the button microcontrollers can have 11 keys attached the answer is sent in 2 bytes. This defines how many bytes to read. This hould always be 2 since the first byte only holds 3 bits and the second byte holds 8. We use the 2nd byte.
 
 `QT_device_status()` - Not used, but can be used for more data about button microcontrollers. Data like if any of the keys are in detect, if any buttons are in error.
 
-`letterFromRow()` - Used to get the letter corresponding to a column number.
+`letterFromColumn(column)` - Used to get the letter corresponding to a column number.
 
-`QT_check_buttons_and_update_board()` - Used to get data from button microcontrollers and update the button_matrix list and fill the values of fromLet, fromNumb, toLet and toNumb.
+`QT_check_buttons_and_update_board(qt_device)` - Used to get data from button microcontrollers and update the button_matrix list and fill the values of fromLet, fromNumb, toLet and toNumb.
 
 `print_board()` - Mostly for debugging purposes. Prints the chess board with column letters. X indicates a chess piece is on a button and O indicates there is none.
 
-`check_buttons()` - Used in the main.c file main loop. Calls the QT_check_buttons_and_update_board() function to read data of a certain button microcontroller based on the QT_MU_1_2_INT_FLAG flags.
+`check_buttons(device_arr)` - Used in the main.c file main loop. Calls the QT_check_buttons_and_update_board() function to read data of a certain button microcontroller based on the QT_MU_1_2_INT_FLAG flags.
 
-`configure_spi()` - Function called out in main.c file to configure SPI with one function. Calls the configurement functions defined above.
+`configure_spi(numb_of_devices, device_arr)` - Function called out in main.c file to configure SPI with one function. Calls the configurement functions defined above.
+1) numb_of_devices - 8 button microcontrollers.
+2) device_arr - Defined in the ##Structs section.
