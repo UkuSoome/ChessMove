@@ -31,9 +31,9 @@ void startGame() {
     asprintf(&starturl, "http://%s:24377/api/start/%d", SERVERIP, BOARDID);
     sendHttpRequest(starturl, starturl, true);
 }
-char* buildMove(char pos1, int pos2, char pos3, int pos4) {
+char* buildMove(char fromLet, int fromNumb, char toLet, int toNumb) {
     char* move;
-    asprintf(&move, "{\"boardId\":\"%d\",\"from\":\"%C%d\",\"to\":\"%C%d\"}", BOARDID, pos1,pos2,pos3,pos4);
+    asprintf(&move, "{\"boardId\":\"%d\",\"from\":\"%C%d\",\"to\":\"%C%d\"}", BOARDID, fromLet, fromNumb, toLet, toNumb);
     return move;
 }
 void sendMove(char* move) {
