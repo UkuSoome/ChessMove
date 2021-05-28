@@ -124,7 +124,7 @@ All the ESP32 pin connections and commands to send to the button microcontroller
 
 `QT_setup(device qt_device)` - Calls out QT_setup_register() with different hex values to configure all the necessary values for button microcontrollers.
 
-`addDeviceToBus((spi_host_device_t hostid, spi_device_interface_config_t *devconfig, spi_device_handle_t *devicehandle)` - Adds all 8 button microcontrollers to a SPI bus.
+`addDeviceToBus(spi_host_device_t hostid, spi_device_interface_config_t *devconfig, spi_device_handle_t *devicehandle)` - Adds all 8 button microcontrollers to a SPI bus.
 
 1) hostid - Which SPI bus to add the device handle to. HSPI_HOST and VSPI_HOST are the hosts defined by ESP-IDF.
 2) devconfig - MB_QT0_devConfigStruct defined in Structs.
