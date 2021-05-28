@@ -48,5 +48,50 @@ All the ESP32 pin connections and commands to send to the button microcontroller
 
 `button_matrix` - 8x8 list that holds the values 0 or 1 to indicate whether a chess piece is on that square or not.
 
+`fromNumb` - Defined in the spi_config.h file. Holds the row number of where the move was made from. Used to build a message to be sent to the server.
+
+`toNumb` - Defined in the spi_config.h file. Holds the row number of where the move is made to. Used to build a message to be sent to the server.
+
+`fromLet` - Defined in the spi_config.h file. Holds the column letter of where the move was made from. Used to build a message to be sent to the server.
+
+`toLet` - Defined in the spi_config.h file. Holds the column number of where the move is made to. Used to build a message to be sent to the server.
+
+### Structs:
+
+`device` - Defined in the spi_config.h file. Holds the information about button microcontrollers. It holds the name, CS pin, device handle, SPI bus host and row index. An array of devices is initialized in the main.c file and information is filled in spi_config.c file.
+
+`MB_SPI_busConfigStruct` - MB and SB structs. They configure the SPI bus pin numbers.
+
+`MB_QT1_devConfigStruct` - One for every button microcontroller to configure frequency and set the callback functions.
+
 ### Functions:
 
+`QT_spi_pre_transfer_callback()` - Pre and post transfer callback funcitons to set the CS pin as 1 or 0 to start or stop the transfer.
+
+`MU_1_2_isr_handler()` - 4 functions for every 2 rows of buttons. They set a flag to indicate that a change has happened in one of those 2 rows of buttons.
+
+`initBothBoardsBus()` - Initializes both of the SPI buses the ESP32 has.
+
+`addDeviceToBus()` - Adds all 8 button microcontrollers to a SPI bus.
+
+`QT_handle_to_string` - Mostly for debugging purposes. All of the button microcontrollers have a device handle and this function returns the device name as a string based on them.
+
+`QT_reset()` - Used to send the command to reset button microcontrollers.
+
+`QT_setup_register()` - Used to send the commands to configure button microcontrollers.
+
+`QT_setup()` - Calls out QT_setup_register() with different hex values to configure all the necessary values for button microcontrollers.
+
+`QT_report_request()` - Used to read data from button microcontrollers about the status of all buttons.
+
+`QT_device_status()` - Not used, but can be used for more data about button microcontrollers. Data like if any of the keys are in detect, if any buttons are in error.
+
+`letterFromRow()` - Used to get the letter corresponding to a column number.
+
+`QT_check_buttons_and_update_board()` - Used to get data from button microcontrollers and update the button_matrix list and fill the values of fromLet, fromNumb, toLet and toNumb.
+
+`print_board()` - Mostly for debugging purposes. Prints the chess board with column letters. X indicates a chess piece is on a button and O indicates there is none.
+
+`check_buttons()` - Used in the main.c file main loop. Calls the QT_check_buttons_and_update_board() function to read data of a certain button microcontroller based on the QT_MU_1_2_INT_FLAG flags.
+
+`configure_spi()` - Function called out in main.c file to configure SPI with one function. Calls the configurement functions defined above.
