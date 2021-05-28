@@ -24,7 +24,7 @@
 
 `startGame()` - Creates the message to send to the server to start a game and sends it. 
 
-`buildMove(char fromLet, int fromNumb, char toLet, int toNumb)` - Builds a move based on the changes on the chess board. Variables defined below in the spi.config file section.
+`buildMove(char fromLet, int fromNumb, char toLet, int toNumb)` - Builds a move based on the changes on the chess board. Variables defined below in the spi_config.c file section.
 
 `sendMove(char* move)` - Sends the previously built move to the server.
 
