@@ -2,27 +2,36 @@
 
 
 
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 
 ## File main.c
 
+
 ### Important variables:
+
 
 `SERVERIP` - The IP of the computer where the webserver runs.
 
 `BOARDID` - ID for this board.
 
+
 ### Functions:
+
 
 `startGame()` - Creates the message to send to the server to start a game and sends it. 
 
-`buildMove()` - Builds a move based on the changes on the chess board.
+`buildMove(char fromLet, int fromNumb, char toLet, int toNumb)` - Builds a move based on the changes on the chess board. Variables defined below in the spi.config file section.
 
-`sendMove()` - Sends the previously built move to the server.
+`sendMove(char* move)` - Sends the previously built move to the server.
+
+1) move - A json message built with buildMove() function and sent to the server.
 
 `app_main` - Calls configure_wifi() and configurespi() functions and then starts the game. Loops to read buttons and send the data to the server.
+
 
 
 
@@ -30,15 +39,20 @@
 
 
 
+
 ## File wifi_config.c
 
+
 ### Important variables:
+
 
 `ESP_WIFI_SSID` - WiFi name.
 
 `ESP_WIFI_PASS` - WiFi password.
 
+
 ### Functions:
+
 
 `configure_wifi()` - Opens a connection with the defined WiFi name and password to a network.
 
@@ -50,13 +64,17 @@
 
 
 
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 
 ## File spi_config.c
 
+
 ### Important variables:
+
 
 All the ESP32 pin connections and commands to send to the button microcontrollers are defined here.
 
@@ -70,7 +88,9 @@ All the ESP32 pin connections and commands to send to the button microcontroller
 
 `toLet` - Defined in the spi_config.h file. Holds the column number of where the move is made to. Used to build a message to be sent to the server.
 
+
 ### Structs:
+
 
 `device` - Defined in the spi_config.h file. Holds the information about button microcontrollers. It holds the name, CS pin, device handle, SPI bus host and row index. An array of devices is initialized in the main.c file and information is filled in spi_config.c file.
 
@@ -78,7 +98,9 @@ All the ESP32 pin connections and commands to send to the button microcontroller
 
 `MB_QT1_devConfigStruct` - One for every button microcontroller to configure frequency and set the callback functions.
 
+
 ### Functions:
+
 
 `QT_spi_pre_transfer_callback()` - Pre and post transfer callback funcitons to set the CS pin as 1 or 0 to start or stop the transfer.
 
@@ -89,7 +111,7 @@ All the ESP32 pin connections and commands to send to the button microcontroller
 `addDeviceToBus((spi_host_device_t hostid, spi_device_interface_config_t *devconfig, spi_device_handle_t *devicehandle)` - Adds all 8 button microcontrollers to a SPI bus.
 
 1) hostid - Which SPI bus to add the device handle to. HSPI_HOST and VSPI_HOST are the hosts defined by ESP-IDF.
-2) devconfig - MB_QT0_devConfigStruct defined in ### Structs
+2) devconfig - MB_QT0_devConfigStruct defined in Structs.
 3) devicehandle - MB_QT0_SPI for an example. Every button microcontroller has their own device handle.
 
 `QT_handle_to_string(device dev)` - Mostly for debugging purposes. All of the button microcontrollers have a device handle and this function returns the device name as a string based on them.
