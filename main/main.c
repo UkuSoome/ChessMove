@@ -106,10 +106,11 @@ void app_main(void)
             sendMove(move);
             ESP_LOGI("DEBUG","MOVE DONE - %s", move);
             checkTo = 0;
-            fromLet = '';
-            toLet = '';
+            fromLet = 'x';
+            toLet = 'x';
             fromNumb = 0;
             toNumb = 0;
+        }
         if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
             prev_time = esp_timer_get_time();
             print_board();
