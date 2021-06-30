@@ -118,16 +118,13 @@ void app_main(void)
 
     for (int i = 0; i < numb_of_chesspieces; ++i) {
         char* move;
-        asprintf(&move, "whitepiece: $s, blackpiece: $s, position $C$d\n", btoa(chesspiece_arr[i].white), btoa(chesspiece_arr[i].black), chesspiece_arr[i].letpos, chesspiece_arr[i].numpos);
+        asprintf(&move, "whitepiece: $s, blackpiece: $s, position $C$d", btoa(chesspiece_arr[i].white), btoa(chesspiece_arr[i].black), chesspiece_arr[i].letpos, chesspiece_arr[i].numpos);
         printf(move);
+        printf("\n");
     }
 
     configure_spi(numb_of_devices, device_arr);
-    uint16_t print_counter = 0;
     int64_t prev_time = 0;
-    char pos1;
-    char pos2;
-    int check;
     vTaskDelay(1000/ portTICK_PERIOD_MS);
     printf("START"); 
     printf("\n");
