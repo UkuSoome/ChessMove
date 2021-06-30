@@ -452,14 +452,14 @@ void QT_device_status(device qt_device)
     }
 }
 char letterFromColumn(int column) {
-    if (column==0) return 'a';
-    if (column==1) return 'b';
-    if (column==2) return 'c';
-    if (column==3) return 'd';
-    if (column==4) return 'e';
-    if (column==5) return 'f';
-    if (column==6) return 'g';
-    if (column==7) return 'h';
+    if (column==7) return 'a';
+    if (column==6) return 'b';
+    if (column==5) return 'c';
+    if (column==4) return 'd';
+    if (column==3) return 'e';
+    if (column==2) return 'f';
+    if (column==1) return 'g';
+    if (column==0) return 'h';
     return 'a';
 }
 void QT_check_buttons_and_update_board(device qt_device) {
