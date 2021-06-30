@@ -172,6 +172,9 @@ void app_main(void)
             }
         }
         if (fromdone && todone && (toLet != 'x' && toNumb != 10)) {
+            printf("whiteorblack: ");
+            printf(btoa(whiteturn));
+            printf("\n");
             move = buildMove(fromLet, fromNumb, toLet, toNumb);
             sendMove(move);
             changeButtonPos(chesspiece_arr, fromLet, fromNumb, whiteturn, toLet, toNumb);
