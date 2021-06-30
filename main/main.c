@@ -28,8 +28,7 @@ typedef struct {
 
 int checkboard[8][8] = {};
 
-uint8_t numb_of_chesspieces = 32;
-chesspiece chesspiece_arr[numb_of_chesspieces];
+
 //int fromnumb;
 //int fromlet;
 //int tonumb;
@@ -109,11 +108,15 @@ void app_main(void)
     uint8_t numb_of_devices = 8;
     
     device device_arr[numb_of_devices];
+
+    uint8_t numb_of_chesspieces = 32;
+    chesspiece chesspiece_arr[numb_of_chesspieces];
+    
     fillChessPiecesArray();
 
     for (int i = 0; i < numb_of_chesspieces; ++i) {
         char* move;
-        asprintf(&move, "whitepiece: $d, blackpiece: $d, position $C$d\n", chesspiece_arr.white, chesspiece_arr.black, chesspiece_arr.letpos, chesspiece_arr.numpos);
+        asprintf(&move, "whitepiece: $d, blackpiece: $d, position $C$d\n", chesspiece_arr[i].white, chesspiece_arr[i].black, chesspiece_arr[i].letpos, chesspiece_arr[i].numpos);
         printf(move);
     }
 
