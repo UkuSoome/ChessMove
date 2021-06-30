@@ -9,6 +9,8 @@
 #include "spi_config.h"
 #include "wifi_config.h"
 
+#define btoa(x) ((x)?"true":"false")
+
 typedef struct {
     bool white;
     bool black;
@@ -116,7 +118,7 @@ void app_main(void)
 
     for (int i = 0; i < numb_of_chesspieces; ++i) {
         char* move;
-        asprintf(&move, "whitepiece: $d, blackpiece: $d, position $C$d\n", chesspiece_arr[i].white, chesspiece_arr[i].black, chesspiece_arr[i].letpos, chesspiece_arr[i].numpos);
+        asprintf(&move, "whitepiece: $s, blackpiece: $s, position $C$d\n", btoa(chesspiece_arr[i].white), btoa(chesspiece_arr[i].black), chesspiece_arr[i].letpos, chesspiece_arr[i].numpos);
         printf(move);
     }
 
