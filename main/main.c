@@ -73,10 +73,10 @@ void fillChessPiecesArray() {
             chesspiece_arr[i].buttondead = false;
             chesspiece_arr[i].letpos = letterFromColumn(column);
             if (i < 8) {
-                chesspiece_arr[i].letnum = 1;
+                chesspiece_arr[i].numpos = 1;
             }
             else {
-                chesspiece_arr[i].letnum = 2;
+                chesspiece_arr[i].numpos = 2;
             }
         }
         else {
@@ -85,10 +85,10 @@ void fillChessPiecesArray() {
             chesspiece_arr[i].buttondead = false;
             chesspiece_arr[i].letpos = letterFromColumn(column);
             if (i < 24) {
-                chesspiece_arr[i].letnum = 7;
+                chesspiece_arr[i].numpos = 7;
             }
             else {
-                chesspiece_arr[i].letnum = 8;
+                chesspiece_arr[i].numpos = 8;
             }
         }
         column+=1;
