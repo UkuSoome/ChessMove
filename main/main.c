@@ -138,6 +138,17 @@ void changeButtonPos(chesspiece *chesspiece_arr, char fromLet, int fromNumb, boo
         }
     }
 }
+int countButtons(void) {
+    int check=0;
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) { 
+            if (button_matrix[i][j]) {
+                check+=1;
+            }
+        }
+    }
+    return check;
+}
 void app_main(void)
 {   
 
@@ -169,35 +180,49 @@ void app_main(void)
     printf("START"); 
     printf("\n");
     startGame();
+    int counter = 0;
+    bool gamestarted = false;
     while (1) {
-
-        check_buttons(device_arr);
-        vTaskDelay(100/ portTICK_PERIOD_MS);
-        if (fromdone && !todone) {
-            if (!checkFromPos(chesspiece_arr, fromLet, fromNumb, whiteturn)) {
+        if (gamestarted) {
+            check_buttons(device_arr);
+            vTaskDelay(100/ portTICK_PERIOD_MS);
+            if (fromdone && !todone) {
+                if (!checkFromPos(chesspiece_arr, fromLet, fromNumb, whiteturn)) {
+                    fromdone = 0;
+                }
+            }
+            if (fromdone && todone && (toLet != 'x' && toNumb != 10) && (fromLet != 'x' && fromNumb != 10)) {
+                printf("whiteorblack: ");
+                printf(btoa(whiteturn));
+                printf("\n");
+                move = buildMove(fromLet, fromNumb, toLet, toNumb);
+                sendMove(move);
+                changeButtonPos(chesspiece_arr, fromLet, fromNumb, whiteturn, toLet, toNumb);
+                ESP_LOGI("DEBUG","MOVE DONE - %s", move);
                 fromdone = 0;
+                todone = 0;
+                toLet = 'x';
+                toNumb = 10;
+                whiteturn = whiteturn ^ 1;
+            }
+            if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
+                prev_time = esp_timer_get_time();
+                print_board();
+                printf("\n");
+                printf("\n");
+                printf("\n");
             }
         }
-        if (fromdone && todone && (toLet != 'x' && toNumb != 10)) {
-            printf("whiteorblack: ");
-            printf(btoa(whiteturn));
+        else {
+            counter = countButtons();
+            printf("counter: ");
+            printf(counter);
             printf("\n");
-            move = buildMove(fromLet, fromNumb, toLet, toNumb);
-            sendMove(move);
-            changeButtonPos(chesspiece_arr, fromLet, fromNumb, whiteturn, toLet, toNumb);
-            ESP_LOGI("DEBUG","MOVE DONE - %s", move);
-            fromdone = 0;
-            todone = 0;
-            toLet = 'x';
-            toNumb = 10;
-            whiteturn = whiteturn ^ 1;
-        }
-        if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
-            prev_time = esp_timer_get_time();
-            print_board();
-            printf("\n");
-            printf("\n");
-            printf("\n");
+            if (counter == 4) {
+                gamestarted = true;
+                fromLet = 'x';
+                fromNumb = 10;
+            }
         }
     }
 }
