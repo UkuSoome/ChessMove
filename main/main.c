@@ -30,7 +30,7 @@ typedef struct {
 
 int checkboard[8][8] = {};
 
-
+uint8_t numb_of_chesspieces = 32;
 //int fromnumb;
 //int fromlet;
 //int tonumb;
@@ -65,7 +65,7 @@ void printboard(void) {
     }
 }
 
-void fillChessPiecesArray(chesspiece *chesspiece_arr, int numb_of_chesspieces) {
+void fillChessPiecesArray(chesspiece *chesspiece_arr) {
     int column = 0;
     for (int i = 0; i < numb_of_chesspieces; ++i) {
         if (i < 16) {
@@ -98,12 +98,52 @@ void fillChessPiecesArray(chesspiece *chesspiece_arr, int numb_of_chesspieces) {
         }
     }
 }
+
+bool checkFromPos(chesspiece *chesspiece_arr, char fromLet, char fromNumb, bool whiteturn) {
+    for (int i = 0; i < numb_of_chesspieces; ++i) {
+        if (whiteturn) {
+            if (chesspiece_arr[i].white) {
+                if (fromLet == chesspiece_arr[i].letpos && fromNumb == chesspiece_arr[i].numpos) {
+                    return true;
+                }
+            }
+        }
+        else {
+            if (chesspiece_arr[i].black) {
+                if (fromLet == chesspiece_arr[i].letpos && fromNumb == chesspiece_arr[i].numpos) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+void changeButtonPos(chesspiece *chesspiece_arr, char fromLet, int fromNumb, bool whiteturn, char toLet, int toNumb) {
+    for (int i = 0; i < numb_of_chesspieces; ++i) {
+        if (whiteturn) {
+            if (chesspiece_arr[i].white) {
+                if (fromLet == chesspiece_arr[i].letpos && fromNumb == chesspiece_arr[i].numpos) {
+                    chesspiece_arr[i].letpos = toLet;
+                    chesspiece_arr[i].numpos = toNumb;
+                }
+            }
+        }
+        else {
+            if (chesspiece_arr[i].black) {
+                if (fromLet == chesspiece_arr[i].letpos && fromNumb == chesspiece_arr[i].numpos) {
+                    chesspiece_arr[i].letpos = toLet;
+                    chesspiece_arr[i].numpos = toNumb;
+                }
+            }
+        }
+    }
+}
 void app_main(void)
 {   
 
     configure_wifi();
     vTaskDelay(1000/ portTICK_PERIOD_MS);
-
+    bool whiteturn = true;
     char* move;
 
     static const char *SPI_TAG = "MAIN";
@@ -111,16 +151,10 @@ void app_main(void)
     
     device device_arr[numb_of_devices];
 
-    uint8_t numb_of_chesspieces = 32;
+    
     chesspiece chesspiece_arr[numb_of_chesspieces];
     
-    fillChessPiecesArray(chesspiece_arr, numb_of_chesspieces);
-
-    for (int i = 0; i < numb_of_chesspieces; ++i) {
-        char* move;
-        asprintf(&move, "whitepiece: %s, blackpiece: %s, position %C%d\n", btoa(chesspiece_arr[i].white), btoa(chesspiece_arr[i].black), chesspiece_arr[i].letpos, chesspiece_arr[i].numpos);
-        printf(move);
-    }
+    fillChessPiecesArray(chesspiece_arr);
 
     configure_spi(numb_of_devices, device_arr);
     int64_t prev_time = 0;
@@ -131,17 +165,20 @@ void app_main(void)
     while (1) {
 
         check_buttons(device_arr);
-        vTaskDelay(100/ portTICK_PERIOD_MS);    // Wait at least 100ms
-        //compareBoards();
-        if (checkTo == 2) {
+        vTaskDelay(100/ portTICK_PERIOD_MS);
+        if (fromdone && !todone) {
+            if (!checkFromPos(chesspiece_arr, fromLet, fromNumb, whiteturn)) {
+                fromdone = 0;
+            }
+        }
+        if (fromdone && todone) {
             move = buildMove(fromLet, fromNumb, toLet, toNumb);
             sendMove(move);
+            changeButtonPos(chesspiece_arr, fromLet, fromNumb, whiteturn, toLet, toNumb)
             ESP_LOGI("DEBUG","MOVE DONE - %s", move);
-            checkTo = 0;
-            //fromLet = 'x';
-            //toLet = 'x';
-            //fromNumb = 0;
-            //toNumb = 0;
+            fromdone = 0;
+            todone = 0;
+            whiteturn = whiteturn ^ 1;
         }
         if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
             prev_time = esp_timer_get_time();

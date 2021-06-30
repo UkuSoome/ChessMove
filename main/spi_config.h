@@ -26,6 +26,8 @@ char fromLet;
 char toLet;
 int checkTo;
 int checkFrom;
+int todone;
+int fromdone;
 void configure_spi(uint8_t, device*);
 const char* QT_handle_to_string(device);
 void QT_check_buttons_and_update_board(device);
