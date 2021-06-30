@@ -63,7 +63,7 @@ void printboard(void) {
     }
 }
 
-void fillChessPiecesArray() {
+void fillChessPiecesArray(chesspiece *chesspiece_arr, int numb_of_chesspieces) {
     int column = 0;
     for (int i = 0; i < numb_of_chesspieces; ++i) {
         if (i < 16) {
@@ -112,7 +112,7 @@ void app_main(void)
     uint8_t numb_of_chesspieces = 32;
     chesspiece chesspiece_arr[numb_of_chesspieces];
     
-    fillChessPiecesArray();
+    fillChessPiecesArray(chesspiece_arr, numb_of_chesspieces);
 
     for (int i = 0; i < numb_of_chesspieces; ++i) {
         char* move;
