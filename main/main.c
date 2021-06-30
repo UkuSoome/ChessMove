@@ -174,7 +174,7 @@ void app_main(void)
         if (fromdone && todone) {
             move = buildMove(fromLet, fromNumb, toLet, toNumb);
             sendMove(move);
-            changeButtonPos(chesspiece_arr, fromLet, fromNumb, whiteturn, toLet, toNumb)
+            changeButtonPos(chesspiece_arr, fromLet, fromNumb, whiteturn, toLet, toNumb);
             ESP_LOGI("DEBUG","MOVE DONE - %s", move);
             fromdone = 0;
             todone = 0;
