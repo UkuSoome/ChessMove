@@ -31,4 +31,4 @@ const char* QT_handle_to_string(device);
 void QT_check_buttons_and_update_board(device);
 void print_board(void);
 void check_buttons(device*);
-char letterFromRow(int);
+char letterFromColumn(int);

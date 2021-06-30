@@ -9,6 +9,13 @@
 #include "spi_config.h"
 #include "wifi_config.h"
 
+typedef struct {
+    bool white;
+    bool black;
+    char letpos;
+    int numpos;
+    bool buttondead;
+} chesspiece;
 
 #ifdef CONFIG_IDF_TARGET_ESP32
 #define CHIP_NAME "ESP32"
@@ -21,6 +28,8 @@
 
 int checkboard[8][8] = {};
 
+uint8_t numb_of_chesspieces = 32;
+chesspiece chesspiece_arr[numb_of_chesspieces];
 //int fromnumb;
 //int fromlet;
 //int tonumb;
@@ -54,27 +63,40 @@ void printboard(void) {
         printf("\n");
     }
 }
-void compareBoards(void) {
 
-    for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {   
-            if (checkboard[i][j] == 1 && button_matrix[i][j] == 0) {
-                checkboard[i][j] = 0;
-                fromNumb = j+1;
-                fromLet = letterFromRow(i);
-                count++;
+void fillChessPiecesArray() {
+    int column = 0;
+    for (int i = 0; i < numb_of_chesspieces; ++i) {
+        if (i < 16) {
+            chesspiece_arr[i].white = true;
+            chesspiece_arr[i].black = false;
+            chesspiece_arr[i].buttondead = false;
+            chesspiece_arr[i].letpos = letterFromColumn(column);
+            if (i < 8) {
+                chesspiece_arr[i].letnum = 1;
             }
-            else if(checkboard[i][j] == 0 && button_matrix[i][j] == 1) {
-                checkboard[i][j] = 1;
-                toLet = letterFromRow(i);
-                toNumb = j+1;
-                count++;
+            else {
+                chesspiece_arr[i].letnum = 2;
             }
+        }
+        else {
+            chesspiece_arr[i].black = true;
+            chesspiece_arr[i].white = false;
+            chesspiece_arr[i].buttondead = false;
+            chesspiece_arr[i].letpos = letterFromColumn(column);
+            if (i < 24) {
+                chesspiece_arr[i].letnum = 7;
+            }
+            else {
+                chesspiece_arr[i].letnum = 8;
+            }
+        }
+        column+=1;
+        if (column == 8) {
+            column = 0;
         }
     }
 }
-
-
 void app_main(void)
 {   
 
@@ -85,7 +107,16 @@ void app_main(void)
 
     static const char *SPI_TAG = "MAIN";
     uint8_t numb_of_devices = 8;
+    
     device device_arr[numb_of_devices];
+    fillChessPiecesArray();
+
+    for (int i = 0; i < numb_of_chesspieces; ++i) {
+        char* move;
+        asprintf(&move, "whitepiece: $d, blackpiece: $d, position $C$d\n", chesspiece_arr.white, chesspiece_arr.black, chesspiece_arr.letpos, chesspiece_arr.numpos);
+        printf(move);
+    }
+
     configure_spi(numb_of_devices, device_arr);
     uint16_t print_counter = 0;
     int64_t prev_time = 0;
