@@ -171,13 +171,15 @@ void app_main(void)
                 fromdone = 0;
             }
         }
-        if (fromdone && todone) {
+        if (fromdone && todone && (toLet != 'x' && toNumb != 10)) {
             move = buildMove(fromLet, fromNumb, toLet, toNumb);
             sendMove(move);
             changeButtonPos(chesspiece_arr, fromLet, fromNumb, whiteturn, toLet, toNumb);
             ESP_LOGI("DEBUG","MOVE DONE - %s", move);
             fromdone = 0;
             todone = 0;
+            toLet = 'x';
+            toNumb = 10;
             whiteturn = whiteturn ^ 1;
         }
         if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
