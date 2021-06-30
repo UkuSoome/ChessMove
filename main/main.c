@@ -162,13 +162,6 @@ void app_main(void)
     
     device device_arr[numb_of_devices];
     
-    for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) { 
-            if (j == 0 || j == 1 || j == 6 || j == 7) {
-                button_matrix[i][j] = 1;
-            }
-        }
-    }
     
     chesspiece chesspiece_arr[numb_of_chesspieces];
     
