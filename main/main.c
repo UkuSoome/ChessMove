@@ -176,8 +176,17 @@ void app_main(void)
     int counter = 0;
     bool gamestarted = false;
     while (1) {
-        printf("siin");
-        //if (gamestarted) {
+            counter = countButtons();
+            printf("counter: ");
+            printf(counter);
+            printf("\n");
+            if (counter == 4) {
+                gamestarted = true;
+                fromLet = 'x';
+                fromNumb = 10;
+            }
+        check_buttons(device_arr);
+        /*if (gamestarted) {
             check_buttons(device_arr);
             vTaskDelay(100/ portTICK_PERIOD_MS);
             if (fromdone && !todone) {
@@ -210,7 +219,7 @@ void app_main(void)
                 printf("\n");
                 printf("\n");
             }
-        //}
+        }*/
         /*else {
             counter = countButtons();
             printf("counter: ");
