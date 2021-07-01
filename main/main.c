@@ -177,12 +177,14 @@ void app_main(void)
     bool gamestarted = false;
     while (1) {
         printf("siin");
-        if (gamestarted) {
+        //if (gamestarted) {
             check_buttons(device_arr);
             vTaskDelay(100/ portTICK_PERIOD_MS);
             if (fromdone && !todone) {
                 if (!checkFromPos(chesspiece_arr, fromLet, fromNumb, whiteturn)) {
                     fromdone = 0;
+                    fromLet = 'x';
+                    fromNumb = 10;
                 }
             }
             if (fromdone && todone && (toLet != 'x' && toNumb != 10) && (fromLet != 'x' && fromNumb != 10)) {
@@ -197,6 +199,8 @@ void app_main(void)
                 todone = 0;
                 toLet = 'x';
                 toNumb = 10;
+                fromLet = 'x';
+                fromNumb = 10;
                 whiteturn = whiteturn ^ 1;
             }
             if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
@@ -206,8 +210,8 @@ void app_main(void)
                 printf("\n");
                 printf("\n");
             }
-        }
-        else {
+        //}
+        /*else {
             counter = countButtons();
             printf("counter: ");
             printf(counter);
@@ -217,7 +221,7 @@ void app_main(void)
                 fromLet = 'x';
                 fromNumb = 10;
             }
-        }
+        }*/
     }
 }
 
