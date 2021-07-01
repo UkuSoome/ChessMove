@@ -177,20 +177,6 @@ void app_main(void)
     bool gamestarted = false;
     while (1) {
         if (gamestarted) {
-            printf("maolensiin");
-            printf("\n");
-        }
-        else {
-            counter = countButtons();
-            ESP_LOGI("DEBUG", "COUNTER: %d", counter);
-            if (counter == 4) {
-                gamestarted = true;
-                fromLet = 'x';
-                fromNumb = 10;
-            }
-            check_buttons(device_arr);
-        }
-        /*if (gamestarted) {
             check_buttons(device_arr);
             vTaskDelay(100/ portTICK_PERIOD_MS);
             if (fromdone && !todone) {
@@ -223,18 +209,17 @@ void app_main(void)
                 printf("\n");
                 printf("\n");
             }
-        }*/
-        /*else {
+        }
+        else {
             counter = countButtons();
-            printf("counter: ");
-            printf(counter);
-            printf("\n");
+            ESP_LOGI("DEBUG", "COUNTER: %d", counter);
             if (counter == 4) {
                 gamestarted = true;
                 fromLet = 'x';
                 fromNumb = 10;
             }
-        }*/
+            check_buttons(device_arr);
+        }
     }
 }
 
