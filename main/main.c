@@ -218,7 +218,7 @@ void app_main(void)
                 fromLet = 'x';
                 fromNumb = 10;
             }
-            check_buttons(device_arr);
+            check_buttons2(device_arr);
         }
     }
 }

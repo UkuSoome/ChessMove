@@ -452,14 +452,14 @@ void QT_device_status(device qt_device)
     }
 }
 char letterFromColumn(int column) {
-    if (column==7) return 'a';
-    if (column==6) return 'b';
-    if (column==5) return 'c';
-    if (column==4) return 'd';
-    if (column==3) return 'e';
-    if (column==2) return 'f';
-    if (column==1) return 'g';
-    if (column==0) return 'h';
+    if (column==0) return 'a';
+    if (column==1) return 'b';
+    if (column==2) return 'c';
+    if (column==3) return 'd';
+    if (column==4) return 'e';
+    if (column==5) return 'f';
+    if (column==6) return 'g';
+    if (column==7) return 'h';
     return 'a';
 }
 void QT_check_buttons_and_update_board(device qt_device) {
@@ -486,6 +486,20 @@ void QT_check_buttons_and_update_board(device qt_device) {
                 fromdone = 1;
                 checkTo++;
             }
+            button_matrix[qt_device.row_index][i] = 0;
+        }    
+    }
+}
+void QT_check_buttons_and_update_board2(device qt_device) {
+    static const char *SPI_TAG = "QT_BUTTON_CHECK";
+    uint8_t button_row_data = 0; 
+    QT_report_request(qt_device, REG_ALL_KEYS, 2);
+    button_row_data = global_rx_buffer[1];
+    for (int i = 0; i < BUTTON_MATRIX_COL_SIZE; ++i) {
+        if ((button_row_data & (0x01<<i))>>i) {
+            button_matrix[qt_device.row_index][i] = 1;
+        }
+        else {
             button_matrix[qt_device.row_index][i] = 0;
         }    
     }
@@ -533,6 +547,34 @@ void check_buttons(device* device_arr) {
             QT_SU_3_4_INT_FLAG = false;
             QT_check_buttons_and_update_board(device_arr[6]);
             QT_check_buttons_and_update_board(device_arr[7]);
+        }
+        else if (QT_INT_ERR_FLAG == true) {
+            QT_INT_ERR_FLAG = false; 
+        }
+    }
+}
+void check_buttons2(device* device_arr) {
+    static const char *SPI_TAG = "DEBUG";
+    if (QT_MU_1_2_INT_FLAG || QT_MU_3_4_INT_FLAG || QT_SU_1_2_INT_FLAG || QT_SU_3_4_INT_FLAG || QT_INT_ERR_FLAG) {
+        if (QT_MU_1_2_INT_FLAG == true) {
+            QT_MU_1_2_INT_FLAG = false;
+            QT_check_buttons_and_update_board2(device_arr[0]);
+            QT_check_buttons_and_update_board2(device_arr[1]);
+        }
+        else if (QT_MU_3_4_INT_FLAG == true) {
+            QT_MU_3_4_INT_FLAG = false;
+            QT_check_buttons_and_update_board2(device_arr[2]);
+            QT_check_buttons_and_update_board2(device_arr[3]); 
+        }
+        else if (QT_SU_1_2_INT_FLAG == true) {
+            QT_SU_1_2_INT_FLAG = false;
+            QT_check_buttons_and_update_board2(device_arr[4]);
+            QT_check_buttons_and_update_board2(device_arr[5]);
+        }
+        else if (QT_SU_3_4_INT_FLAG == true) {
+            QT_SU_3_4_INT_FLAG = false;
+            QT_check_buttons_and_update_board2(device_arr[6]);
+            QT_check_buttons_and_update_board2(device_arr[7]);
         }
         else if (QT_INT_ERR_FLAG == true) {
             QT_INT_ERR_FLAG = false; 

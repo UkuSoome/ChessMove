@@ -31,6 +31,8 @@ int fromdone;
 void configure_spi(uint8_t, device*);
 const char* QT_handle_to_string(device);
 void QT_check_buttons_and_update_board(device);
+void QT_check_buttons_and_update_board2(device);
 void print_board(void);
 void check_buttons(device*);
+void check_buttons2(device*);
 char letterFromColumn(int);
