@@ -176,6 +176,7 @@ void app_main(void)
     int counter = 0;
     bool gamestarted = false;
     while (1) {
+        printf("siin");
         if (gamestarted) {
             check_buttons(device_arr);
             vTaskDelay(100/ portTICK_PERIOD_MS);
