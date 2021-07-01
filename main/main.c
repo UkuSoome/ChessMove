@@ -176,7 +176,7 @@ void app_main(void)
     int counter = 0;
     bool gamestarted = false;
     while (1) {
-            counter = countButtons();
+            //counter = countButtons();
             printf("counter: ");
             printf(counter);
             printf("\n");
