@@ -142,8 +142,8 @@ int countButtons(void) {
     int check=0;
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) { 
-            if (button_matrix[i][j]) {
-                check+=1;
+            if (button_matrix[i][j] == 1) {
+                check++;
             }
         }
     }
