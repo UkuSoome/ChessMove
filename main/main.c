@@ -177,9 +177,7 @@ void app_main(void)
     bool gamestarted = false;
     while (1) {
             //counter = countButtons();
-            printf("counter: ");
-            printf(counter);
-            printf("\n");
+            ESP_LOGI("DEBUG", "COUNTER: %d", counter);
             if (counter == 4) {
                 gamestarted = true;
                 fromLet = 'x';
