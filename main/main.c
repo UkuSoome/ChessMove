@@ -33,10 +33,10 @@ typedef struct {
 int checkboard[8][8] = {};
 
 uint8_t numb_of_chesspieces = 32;
-//int fromnumb;
-//int fromlet;
-//int tonumb;
-//int tolet;
+
+char sendFromLet = 'x';
+int sendFromNumb = 10;
+
 int count = 0;
 void startGame() {
     char* starturl;
@@ -106,6 +106,8 @@ bool checkFromPos(chesspiece *chesspiece_arr, char fromLet, char fromNumb, bool 
         if (whiteturn) {
             if (chesspiece_arr[i].white) {
                 if (fromLet == chesspiece_arr[i].letpos && fromNumb == chesspiece_arr[i].numpos) {
+                    sendFromLet = fromLet;
+                    sendFromNumb = fromNumb;
                     return true;
                 }
             }
@@ -113,6 +115,8 @@ bool checkFromPos(chesspiece *chesspiece_arr, char fromLet, char fromNumb, bool 
         else {
             if (chesspiece_arr[i].black) {
                 if (fromLet == chesspiece_arr[i].letpos && fromNumb == chesspiece_arr[i].numpos) {
+                    sendFromLet = fromLet;
+                    sendFromNumb = fromNumb;
                     return true;
                 }
             }
@@ -177,6 +181,7 @@ void app_main(void)
     startGame();
     int counter = 0;
     bool gamestarted = false;
+
     while (1) {
         if (gamestarted) {
             check_buttons(device_arr);
@@ -185,18 +190,18 @@ void app_main(void)
                 if (!checkFromPos(chesspiece_arr, fromLet, fromNumb, whiteturn)) {
                     printf("wrong");
                     printf("\n");
-                    fromdone = 0;
+                    //fromdone = 0;
                     //fromLet = 'x';
                     //fromNumb = 10;
                 }
             }
-            if (fromdone && todone && (toLet != 'x' && toNumb != 10) && (fromLet != 'x' && fromNumb != 10)) {
+            if (fromdone && todone && (toLet != 'x' && toNumb != 10) && (fromLet != 'x' && fromNumb != 10) && (sendFromLet != 'x' && sendFromNumb != 10)) {
                 printf("whiteorblack: ");
                 printf(btoa(whiteturn));
                 printf("\n");
-                move = buildMove(fromLet, fromNumb, toLet, toNumb);
+                move = buildMove(sendFromLet, sendFromNumb, toLet, toNumb);
                 sendMove(move);
-                changeButtonPos(chesspiece_arr, fromLet, fromNumb, whiteturn, toLet, toNumb);
+                changeButtonPos(chesspiece_arr, sendFromLet, sendFromNumb, whiteturn, toLet, toNumb);
                 ESP_LOGI("DEBUG","MOVE DONE - %s", move);
                 fromdone = 0;
                 todone = 0;
@@ -204,6 +209,8 @@ void app_main(void)
                 toNumb = 10;
                 fromLet = 'x';
                 fromNumb = 10;
+                sendFromLet = 'x';
+                sendFromNumb = 10;
                 whiteturn = whiteturn ^ 1;
             }
             if (esp_timer_get_time()-prev_time >= PRINT_BOARD_INTERVAL_US) {
