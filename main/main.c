@@ -11,6 +11,8 @@
 
 #define btoa(x) ((x)?"true":"false")
 
+#define number_of_buttons 6 //this many chess pieces have to be on the board before the "real" game starts.
+
 typedef struct {
     bool white;
     bool black;
@@ -182,8 +184,8 @@ void app_main(void)
             if (fromdone && !todone) {
                 if (!checkFromPos(chesspiece_arr, fromLet, fromNumb, whiteturn)) {
                     fromdone = 0;
-                    fromLet = 'x';
-                    fromNumb = 10;
+                    //fromLet = 'x';
+                    //fromNumb = 10;
                 }
             }
             if (fromdone && todone && (toLet != 'x' && toNumb != 10) && (fromLet != 'x' && fromNumb != 10)) {
@@ -213,7 +215,7 @@ void app_main(void)
         else {
             counter = countButtons();
             ESP_LOGI("DEBUG", "COUNTER: %d", counter);
-            if (counter == 4) {
+            if (counter == number_of_buttons) {
                 gamestarted = true;
                 fromLet = 'x';
                 fromNumb = 10;
