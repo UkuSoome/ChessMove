@@ -24,8 +24,6 @@ int fromNumb;
 int toNumb;
 char fromLet;
 char toLet;
-int checkTo;
-int checkFrom;
 int todone;
 int fromdone;
 void configure_spi(uint8_t, device*);

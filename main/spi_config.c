@@ -69,22 +69,7 @@ bool QT_INT_ERR_FLAG;
 
 esp_err_t ret;
 static const char *SPI_TAG = "SPICONF";
-/*spi_device_handle_t MB_QT0_SPI;
-spi_device_handle_t MB_QT1_SPI;
-spi_device_handle_t MB_QT2_SPI;
-spi_device_handle_t MB_QT3_SPI;
-spi_device_handle_t SB_QT0_SPI;
-spi_device_handle_t SB_QT1_SPI;
-spi_device_handle_t SB_QT2_SPI;
-spi_device_handle_t SB_QT3_SPI;*/
 
-/*typedef struct {
-    const char* name;
-    int cs_pin;
-    spi_device_handle_t handle;
-    uint8_t host;
-    int row_index;
-} device;*/
 
 const char* QT_handle_to_string(device);
 
@@ -94,20 +79,14 @@ uint8_t global_rx_buffer[MAX_TRANS_DATA_SIZE] = {0};
 
 
 void QT_spi_pre_transfer_callback(spi_transaction_t *t) {
-    //int SPI_CS=(int)t->user;s
-    //gpio_set_level(SPI_CS, 0);
     gpio_set_level(current_cs_pin,0);
 }
 
 void QT_spi_post_transfer_callback(spi_transaction_t *t) {
-    //int SPI_CS=(int)t->user;
-    //gpio_set_level(SPI_CS, 1);
     gpio_set_level(current_cs_pin,1);
 }
 static void IRAM_ATTR MU_1_2_isr_handler(void* arg)
 {
-    // QT MU 1 and 2 interrupt service routine
-    // Double check if IO matches and raise flags
     uint32_t gpio_num = (uint32_t) arg;
     if (gpio_num == SPI_MU_1_2_nCHANGE)
         QT_MU_1_2_INT_FLAG = true;
@@ -117,8 +96,6 @@ static void IRAM_ATTR MU_1_2_isr_handler(void* arg)
 
 static void IRAM_ATTR MU_3_4_isr_handler(void* arg)
 {
-    // QT MU 3 and 4 interrupt service routine
-    // Double check if IO matches and raise flags
     uint32_t gpio_num = (uint32_t) arg;
     if (gpio_num == SPI_MU_3_4_nCHANGE)
         QT_MU_3_4_INT_FLAG = true;
@@ -128,8 +105,6 @@ static void IRAM_ATTR MU_3_4_isr_handler(void* arg)
 
 static void IRAM_ATTR SU_1_2_isr_handler(void* arg)
 {
-    // QT SU 1 and 2 interrupt service routine
-    // Double check if IO matches and raise flags
     uint32_t gpio_num = (uint32_t) arg;
     if (gpio_num == SPI_SU_1_2_nCHANGE)
         QT_SU_1_2_INT_FLAG = true;
@@ -138,8 +113,6 @@ static void IRAM_ATTR SU_1_2_isr_handler(void* arg)
 }
 static void IRAM_ATTR SU_3_4_isr_handler(void* arg)
 {
-    // QT SU 3 and 4 interrupt service routine
-    // Double check if IO matches and raise flags
     uint32_t gpio_num = (uint32_t) arg;
     if (gpio_num == SPI_SU_3_4_nCHANGE)
         QT_SU_3_4_INT_FLAG = true;
@@ -251,9 +224,8 @@ void addDeviceToBus(spi_host_device_t hostid, spi_device_interface_config_t *dev
     ESP_LOGI(SPI_TAG, "Main Board QT device add return: %d", ret);
     ESP_ERROR_CHECK(ret);
 }
-const char* QT_handle_to_string(device dev)
+const char* QT_handle_to_string(device dev) // mostly for debug purposes.
 {
-    //static char* QT_devices[] = {"QT_MU_1","QT_MU_2","QT_MU_3","QT_MU_4","QT_SU_1","QT_SU_2","QT_SU_3","QT_SU_4"};
     if (dev.handle == MB_QT0_SPI)
     {
         return("MB_QT0_SPI");
@@ -348,6 +320,11 @@ void QT_setup_register(device qt_device, uint8_t QT_register, uint8_t command)
     }
     vTaskDelay(50/ portTICK_PERIOD_MS);
 }
+
+/*
+Everything in this function has to be sent to the button microcontrollers. The 3rd variable commands are defined in the button microcontroller datasheet.
+Anything new to configure can be added here.
+*/
 void QT_setup(device qt_device){
     static const char *SPI_TAG = "QT_SETUP";
     ESP_LOGI(SPI_TAG, "Setup of %s", qt_device.name);
@@ -356,7 +333,7 @@ void QT_setup(device qt_device){
     QT_setup_register(qt_device, REG_KEY8_NTHR, CMD_DISABLE_KEY);
     QT_setup_register(qt_device, REG_KEY9_NTHR, CMD_DISABLE_KEY);
     QT_setup_register(qt_device, REG_KEY10_NTHR, CMD_DISABLE_KEY);
-    QT_setup_register(qt_device, 0x96, 0x32);
+    QT_setup_register(qt_device, 0x96, 0x32); // sorry for not correctly naming the commands, ran out of time.
     QT_setup_register(qt_device, 0x97, 0x00); //these have to be done
     QT_setup_register(qt_device, 0x98, 0x00); //these have to be done otherwise one qt device only detects 1 key at a time
     QT_setup_register(qt_device, 0xB0, 0x00);
@@ -375,10 +352,7 @@ void QT_report_request(device qt_device, uint8_t command, uint8_t rec_length)
     spi_transaction_t trans;
     memset(&trans, 0, sizeof(trans));       // Zero out the transactio
 
-    //trans.user=dev.cs_pin;
     current_cs_pin = qt_device.cs_pin;
-    //trans.user=(void*)qt_device.cs_pin;
-    // Control - send single byte, 
     trans.flags = SPI_TRANS_USE_RXDATA | SPI_TRANS_USE_TXDATA;
     trans.tx_data[0] = command;
     trans.length=8;                         // Command is 8 bits  
@@ -401,6 +375,9 @@ void QT_report_request(device qt_device, uint8_t command, uint8_t rec_length)
         vTaskDelay(10/ portTICK_PERIOD_MS);
     }
 }
+/*
+Mostly a debugging function. It gives a lot of information about the button microcontrollers.
+*/
 void QT_device_status(device qt_device)
 {
     static const char *SPI_TAG = "QT_STATUS_CHECK";
@@ -472,8 +449,7 @@ void QT_check_buttons_and_update_board(device qt_device) {
             if (button_matrix[qt_device.row_index][i] == 0) {
                 toLet = letterFromColumn(i);
                 toNumb = qt_device.row_index+1;
-                ESP_LOGI(SPI_TAG, "SIIA TEHTI KÄIK: %C%X", toLet,toNumb);
-                checkTo++;
+                ESP_LOGI(SPI_TAG, "MOVE WAS DONE TO HERE: %C%X", toLet,toNumb);
                 todone = 1;
             }
             button_matrix[qt_device.row_index][i] = 1;
@@ -482,9 +458,8 @@ void QT_check_buttons_and_update_board(device qt_device) {
             if (button_matrix[qt_device.row_index][i] == 1) {
                 fromLet = letterFromColumn(i);
                 fromNumb = qt_device.row_index+1;
-                ESP_LOGI(SPI_TAG, "SIIT TEHTI KÄIK: %C%X", fromLet,fromNumb);
+                ESP_LOGI(SPI_TAG, "MOVE WAS DONE FROM HERE: %C%X", fromLet,fromNumb);
                 fromdone = 1;
-                checkTo++;
             }
             button_matrix[qt_device.row_index][i] = 0;
         }    
