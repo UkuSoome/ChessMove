@@ -183,6 +183,8 @@ void app_main(void)
             vTaskDelay(100/ portTICK_PERIOD_MS);
             if (fromdone && !todone) {
                 if (!checkFromPos(chesspiece_arr, fromLet, fromNumb, whiteturn)) {
+                    printf("wrong");
+                    printf("\n");
                     fromdone = 0;
                     //fromLet = 'x';
                     //fromNumb = 10;
