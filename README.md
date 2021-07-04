@@ -33,6 +33,9 @@ cd ChessMove
 ```
 idf.py -p ttyUSB0 -b 115200 flash monitor
 ```
+4) Don't forget to configure the correct SERVERIP in main.c file and WiFi name and password in wifi_config.c file. 
+NB! You might have to turn off the firewall on the computer the server runs on so the board can connect to the WiFi/server.
+
 
 
 ### spi_config.c file
