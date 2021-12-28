@@ -60,7 +60,7 @@ move - A json message built with buildMove() function and sent to the server.
 
 1) urlString - Server API endpoint.
 2) move - Message to send to the server endpoint.
-3) begin - To indicate wheter to send the start game or move command.
+3) begin - To indicate to send either the start game or move command.
 
 
 
